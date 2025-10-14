@@ -1,0 +1,259 @@
+@import url("https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=REM:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  display: flex;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  background-color: rgb(18, 18, 18);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+body {
+  font-family: "Alan Sans", sans-serif;
+  background-color: rgb(23, 23, 23);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode styles */
+body.light-mode {
+  background-color: rgb(245, 245, 245);
+  color: rgb(33, 37, 41);
+}
+
+body.light-mode header {
+  background-color: rgb(248, 249, 250);
+}
+
+body.light-mode .navbar-dark .navbar-nav .nav-link {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+body.light-mode .navbar-dark .navbar-nav .nav-link:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
+body.light-mode .btnd a {
+  background-color: rgb(233, 236, 239);
+  color: rgb(33, 37, 41);
+}
+
+body.light-mode .btnd a:hover {
+  background-color: rgb(222, 226, 230);
+}
+
+.nav-logo {
+  max-width: 100px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.link a {
+  position: relative;
+  padding-bottom: 0.75rem;
+  color: rgb(200, 200, 200);
+}
+
+.link a:hover {
+  color: white;
+}
+
+.link a::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 0;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.link a:hover::after {
+  width: 70%;
+}
+
+.btn {
+  font-weight: bold;
+  padding: 0.5rem 2rem;
+  font-size: 0.9rem;
+  color: rgb(50, 50, 50);
+  background-color: #d7aa00;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Alan Sans", sans-serif;
+}
+
+.btn:hover {
+  background-color: #ffc800;
+  color: rgb(50, 50, 50);
+}
+
+.btnd {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.btnd a {
+  background-color: rgb(44, 44, 44);
+  color: rgb(163, 163, 163);
+  padding: 5px 10px;
+  font-size: 1.25rem;
+  border-radius: 10%;
+  transition: all 0.3s ease;
+}
+
+.btnd a:hover {
+  background-color: rgb(75, 75, 75);
+  transform: scale(1.05);
+}
+
+.ri-user-3-fill {
+  padding-right: 0.25rem;
+}
+
+.ri-vip-diamond-fill {
+  padding-right: 0.25rem;
+}
+
+.ri-box-1-fill {
+  padding-right: 0.25rem;
+}
+
+.ri-arrow-left-right-line {
+  padding-right: 0.25rem;
+}
+
+.ri-store-fill {
+  padding-right: 0.25rem;
+}
+
+.ri-home-smile-fill {
+  padding-right: 0.25rem;
+}
+
+.ri-gift-2-fill {
+  padding-right: 0.25rem;
+}
+
+/* Settings panel styles */
+.settings-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  background-color: rgb(44, 44, 44);
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 5px;
+  padding: 10px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s ease;
+}
+
+.settings-panel.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.settings-section {
+  margin-bottom: 15px;
+}
+
+.settings-section h6 {
+  color: rgb(200, 200, 200);
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.current-selection {
+  background-color: rgb(75, 75, 75);
+  color: rgb(163, 163, 163);
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.current-selection:hover {
+  background-color: rgb(100, 100, 100);
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: rgb(44, 44, 44);
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 3px;
+  display: none;
+  z-index: 1001;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.dropdown-options.active {
+  display: block;
+}
+
+.option {
+  padding: 5px 10px;
+  color: rgb(163, 163, 163);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.option:hover {
+  background-color: rgb(75, 75, 75);
+  color: white;
+}
+
+/* Light mode adjustments for settings panel */
+body.light-mode .settings-panel {
+  background-color: rgb(233, 236, 239);
+  border-color: rgb(222, 226, 230);
+}
+
+body.light-mode .settings-section h6 {
+  color: rgb(33, 37, 41);
+}
+
+body.light-mode .settings-option {
+  color: rgb(33, 37, 41);
+}
+
+body.light-mode .settings-option:hover {
+  color: rgb(0, 0, 0);
+}
