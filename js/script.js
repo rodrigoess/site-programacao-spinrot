@@ -73,26 +73,31 @@ const translations = {
 // Function to update UI text based on language
 function updateLanguage(lang) {
   const t = translations[lang];
-  const navSpans = document.querySelectorAll('.nav-link[href="#"] span');
-  navSpans[0].textContent = t.gratis;
-  navSpans[1].textContent = t.roletas;
-  navSpans[2].textContent = t.caixas;
-  navSpans[3].textContent = t.trocas;
-  navSpans[4].textContent = t.mercado;
-  navSpans[5].textContent = t.inventario;
-  document.querySelector(".btn-warning span").textContent = t.iniciarSessao;
-  document.querySelector(".settings-section:nth-child(1) h6 span").textContent =
-    t.idioma;
-  document.querySelector(".settings-section:nth-child(2) h6 span").textContent =
-    t.modo;
-  document.querySelector(".settings-section:nth-child(3) h6 span").textContent =
-    t.moeda;
+  const navSpans = document.querySelectorAll('nav a[href="#"] span');
+  if (navSpans.length >= 6) {
+    navSpans[0].textContent = t.gratis;
+    navSpans[1].textContent = t.roletas;
+    navSpans[2].textContent = t.caixas;
+    navSpans[3].textContent = t.trocas;
+    navSpans[4].textContent = t.mercado;
+    navSpans[5].textContent = t.inventario;
+  }
+  const btnSpan = document.querySelector(".btn span");
+  if (btnSpan) btnSpan.textContent = t.iniciarSessao;
+  const settingsSections = document.querySelectorAll(".settings-section h6");
+  if (settingsSections.length >= 3) {
+    settingsSections[0].textContent = t.idioma;
+    settingsSections[1].textContent = t.modo;
+    settingsSections[2].textContent = t.moeda;
+  }
 }
 
 // Function to toggle settings panel
 function toggleSettingsPanel() {
   const settingsPanel = document.getElementById("settingsPanel");
-  settingsPanel.classList.toggle("active");
+  if (settingsPanel) {
+    settingsPanel.classList.toggle("active");
+  }
 }
 
 // Settings functionality
@@ -119,16 +124,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const modeMap = { dark: "Escuro", light: "Claro" };
   const currencyMap = { EUR: "EUR", USD: "USD", GBP: "GBP" };
 
-  currentLang.textContent = langMap[savedLang];
-  currentMode.textContent = modeMap[savedMode];
-  currentCurrency.textContent = currencyMap[savedCurrency];
+  if (currentLang) currentLang.textContent = langMap[savedLang];
+  if (currentMode) currentMode.textContent = modeMap[savedMode];
+  if (currentCurrency) currentCurrency.textContent = currencyMap[savedCurrency];
 
   // Close panel when clicking outside
   document.addEventListener("click", (e) => {
     const settingsBtn = document.getElementById("settingsBtn");
     const settingsPanel = document.getElementById("settingsPanel");
     const dropdowns = document.querySelectorAll(".dropdown-options");
-    if (!settingsBtn.contains(e.target) && !settingsPanel.contains(e.target)) {
+    if (
+      settingsBtn &&
+      settingsPanel &&
+      !settingsBtn.contains(e.target) &&
+      !settingsPanel.contains(e.target)
+    ) {
       settingsPanel.classList.remove("active");
       dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
     }
@@ -143,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
       allDropdowns.forEach((d) => {
         if (d !== dropdown) d.classList.remove("active");
       });
-      dropdown.classList.toggle("active");
+      if (dropdown) dropdown.classList.toggle("active");
     });
   });
 
@@ -152,8 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
     option.addEventListener("click", (e) => {
       const lang = e.target.getAttribute("data-lang");
       localStorage.setItem("language", lang);
-      currentLang.textContent = langMap[lang];
-      document.getElementById("lang-options").classList.remove("active");
+      if (currentLang) currentLang.textContent = langMap[lang];
+      const langOptions = document.getElementById("lang-options");
+      if (langOptions) langOptions.classList.remove("active");
       updateLanguage(lang);
     });
   });
@@ -168,8 +179,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.remove("light-mode");
       }
       localStorage.setItem("theme", mode);
-      currentMode.textContent = modeMap[mode];
-      document.getElementById("mode-options").classList.remove("active");
+      if (currentMode) currentMode.textContent = modeMap[mode];
+      const modeOptions = document.getElementById("mode-options");
+      if (modeOptions) modeOptions.classList.remove("active");
     });
   });
 
@@ -178,8 +190,9 @@ document.addEventListener("DOMContentLoaded", () => {
     option.addEventListener("click", (e) => {
       const currency = e.target.getAttribute("data-currency");
       localStorage.setItem("currency", currency);
-      currentCurrency.textContent = currencyMap[currency];
-      document.getElementById("currency-options").classList.remove("active");
+      if (currentCurrency) currentCurrency.textContent = currencyMap[currency];
+      const currencyOptions = document.getElementById("currency-options");
+      if (currencyOptions) currencyOptions.classList.remove("active");
     });
   });
 });

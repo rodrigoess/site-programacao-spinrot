@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="boxes.css" />
+    <title>SpinRot - Caixas</title>
+  </head>
+  <header>
+    <nav>
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="../img/logonb.png" alt="" />
+        </a>
+      </div>
+
+      <ul class="nav-links">
+        <li class="link">
+          <a href="#"><i class="ri-gift-2-fill"></i><span>Grátis</span></a>
+        </li>
+        <li class="link">
+          <a href="#"
+            ><i class="ri-vip-diamond-fill"></i><span>Roletas</span></a
+          >
+        </li>
+        <li class="link">
+          <a href="boxes.html"
+            ><i class="ri-box-1-fill"></i><span>Caixas</span></a
+          >
+        </li>
+        <li class="link">
+          <a href="#"
+            ><i class="ri-arrow-left-right-line"></i><span>Upgrades</span></a
+          >
+        </li>
+        <li class="link">
+          <a href="#"><i class="ri-store-fill"></i><span>Mercado</span></a>
+        </li>
+        <li class="link">
+          <a href="#"
+            ><i class="ri-home-smile-fill"></i><span>Inventário</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <div class="buttons-container">
+      <button class="btn" onclick="window.location.href='login.html'">
+        <i class="ri-user-3-fill"></i><span>Iniciar Sessão</span>
+      </button>
+      <div class="btnd">
+        <a href="#" id="settingsBtn" onclick="toggleSettingsPanel()">
+          <i class="ri-settings-3-fill"></i>
+        </a>
+        <div class="settings-panel" id="settingsPanel">
+          <div class="settings-section">
+            <h6>Idioma</h6>
+            <div class="dropdown-container">
+              <button type="button" class="current-selection" id="current-lang">
+                Português
+              </button>
+              <div class="dropdown-options" id="lang-options">
+                <div class="option" data-lang="pt">Português</div>
+                <div class="option" data-lang="es">Español</div>
+                <div class="option" data-lang="en">English</div>
+              </div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h6>Modo</h6>
+            <div class="dropdown-container">
+              <button type="button" class="current-selection" id="current-mode">
+                Escuro
+              </button>
+              <div class="dropdown-options" id="mode-options">
+                <div class="option" data-mode="dark">Escuro</div>
+                <div class="option" data-mode="light">Claro</div>
+              </div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h6>Moeda</h6>
+            <div class="dropdown-container">
+              <button
+                type="button"
+                class="current-selection"
+                id="current-currency"
+              >
+                EUR
+              </button>
+              <div class="dropdown-options" id="currency-options">
+                <div class="option" data-currency="EUR">EUR</div>
+                <div class="option" data-currency="USD">USD</div>
+                <div class="option" data-currency="GBP">GBP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="#"><i class="ri-heart-fill"></i></a>
+        <a href="#"><i class="ri-shopping-cart-2-fill"></i></a>
+      </div>
+    </div>
+  </header>
+  <body>
+    <div class="boxes-container">
+      <h1>Caixas</h1>
+      <div class="boxes-grid">
+        <div class="box" id="rare-box">
+          <div class="box-image">
+            <i class="ri-box-1-fill"></i>
+          </div>
+          <h3>Rare</h3>
+          <p>Abra para obter itens raros!</p>
+        </div>
+        <div class="box" id="epic-box">
+          <div class="box-image">
+            <i class="ri-box-1-fill"></i>
+          </div>
+          <h3>Epic</h3>
+          <p>Abra para obter itens épicos!</p>
+        </div>
+        <div class="box" id="legendary-box">
+          <div class="box-image">
+            <i class="ri-box-1-fill"></i>
+          </div>
+          <h3>Legendary</h3>
+          <p>Abra para obter itens lendários!</p>
+        </div>
+        <div class="box" id="mythical-box">
+          <div class="box-image">
+            <i class="ri-box-1-fill"></i>
+          </div>
+          <h3>Mythical</h3>
+          <p>Abra para obter itens míticos!</p>
+        </div>
+        <div class="box" id="secret-box">
+          <div class="box-image">
+            <i class="ri-box-1-fill"></i>
+          </div>
+          <h3>Secret</h3>
+          <p>Abra para obter itens secretos!</p>
+        </div>
+      </div>
+      <div id="result-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Você ganhou:</h2>
+          <p id="item-result"></p>
+        </div>
+      </div>
+    </div>
+    <script src="boxes.js"></script>
+    <script src="../js/script.js"></script>
+  </body>
+</html>

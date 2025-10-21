@@ -25,6 +25,12 @@ header {
   position: relative;
 }
 
+nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 body {
   font-family: "Alan Sans", sans-serif;
   background-color: rgb(23, 23, 23);
@@ -58,8 +64,22 @@ body.light-mode .btnd a:hover {
   background-color: rgb(222, 226, 230);
 }
 
+body.light-mode .link a {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+body.light-mode .link a:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
 .nav-logo {
-  max-width: 100px;
+  max-width: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo img {
+  vertical-align: middle;
 }
 
 .nav-links {

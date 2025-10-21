@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="roulette.css" />
+    <title>SpinRot - Roulette</title>
+  </head>
+  <header>
+    <nav>
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="../img/logonb.png" alt="" />
+        </a>
+      </div>
+
+      <ul class="nav-links">
+        <li class="link">
+          <a href="#"><i class="ri-gift-2-fill"></i><span>Grátis</span></a>
+        </li>
+        <li class="link">
+          <a href="#"
+            ><i class="ri-vip-diamond-fill"></i><span>Roletas</span></a
+          >
+        </li>
+        <li class="link">
+          <a href="boxes.html"
+            ><i class="ri-box-1-fill"></i><span>Caixas</span></a
+          >
+        </li>
+        <li class="link">
+          <a href="#"
+            ><i class="ri-arrow-left-right-line"></i><span>Upgrades</span></a
+          >
+        </li>
+        <li class="link">
+          <a href="#"><i class="ri-store-fill"></i><span>Mercado</span></a>
+        </li>
+        <li class="link">
+          <a href="#"
+            ><i class="ri-home-smile-fill"></i><span>Inventário</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <div class="buttons-container">
+      <button class="btn" onclick="window.location.href='login.html'">
+        <i class="ri-user-3-fill"></i><span>Iniciar Sessão</span>
+      </button>
+      <div class="btnd">
+        <a href="#" id="settingsBtn" onclick="toggleSettingsPanel()">
+          <i class="ri-settings-3-fill"></i>
+        </a>
+        <div class="settings-panel" id="settingsPanel">
+          <div class="settings-section">
+            <h6>Idioma</h6>
+            <div class="dropdown-container">
+              <button type="button" class="current-selection" id="current-lang">
+                Português
+              </button>
+              <div class="dropdown-options" id="lang-options">
+                <div class="option" data-lang="pt">Português</div>
+                <div class="option" data-lang="es">Español</div>
+                <div class="option" data-lang="en">English</div>
+              </div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h6>Modo</h6>
+            <div class="dropdown-container">
+              <button type="button" class="current-selection" id="current-mode">
+                Escuro
+              </button>
+              <div class="dropdown-options" id="mode-options">
+                <div class="option" data-mode="dark">Escuro</div>
+                <div class="option" data-mode="light">Claro</div>
+              </div>
+            </div>
+          </div>
+          <div class="settings-section">
+            <h6>Moeda</h6>
+            <div class="dropdown-container">
+              <button
+                type="button"
+                class="current-selection"
+                id="current-currency"
+              >
+                EUR
+              </button>
+              <div class="dropdown-options" id="currency-options">
+                <div class="option" data-currency="EUR">EUR</div>
+                <div class="option" data-currency="USD">USD</div>
+                <div class="option" data-currency="GBP">GBP</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="#"><i class="ri-heart-fill"></i></a>
+        <a href="#"><i class="ri-shopping-cart-2-fill"></i></a>
+      </div>
+    </div>
+  </header>
+  <body>
+    <div class="roulette-container">
+      <h1>Roulette - <span id="box-type"></span></h1>
+      <div class="roulette-wheel">
+        <div class="wheel" id="wheel">
+          <!-- Items will be populated by JS -->
+        </div>
+        <div class="pointer"></div>
+      </div>
+      <div class="open-buttons">
+        <button id="spin-button" class="spin-btn">Spin</button>
+        <button id="open-another" class="spin-btn">Open Another</button>
+      </div>
+      <div class="brainrots-section">
+        <h2>Brainrots</h2>
+        <div id="brainrots-list"></div>
+      </div>
+      <div class="rarities-section">
+        <h2>Rarities</h2>
+        <div id="rarities-list"></div>
+      </div>
+    </div>
+    <script src="roulette.js"></script>
+    <script src="../js/script.js"></script>
+  </body>
+</html>
