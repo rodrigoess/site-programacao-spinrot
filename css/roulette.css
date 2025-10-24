@@ -7,10 +7,36 @@
   text-align: center;
 }
 
+.rarity-selector {
+  margin-bottom: 2rem;
+}
+
+.rarity-selector label {
+  color: white;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.rarity-dropdown {
+  background-color: rgb(44, 44, 44);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #d7aa00;
+  font-size: 1rem;
+}
+
 .roulette-container h1 {
   color: white;
   margin-bottom: 2rem;
   font-size: 2.5rem;
+}
+
+/* Responsive title */
+@media (max-width: 768px) {
+  .roulette-container h1 {
+    font-size: 2rem;
+  }
 }
 
 .roulette-wheel {
@@ -118,6 +144,15 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
+}
+
+/* Responsive lists */
+@media (max-width: 768px) {
+  #brainrots-list,
+  #rarities-list {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+  }
 }
 
 .brainrot-item,

@@ -277,3 +277,238 @@ body.light-mode .settings-option {
 body.light-mode .settings-option:hover {
   color: rgb(0, 0, 0);
 }
+
+/* Hero section */
+.hero-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Responsive hero section */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2rem 1rem;
+  }
+
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+}
+
+/* Promo container */
+.promo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive promo container */
+@media (min-width: 768px) {
+  .promo-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+}
+
+.promo-card {
+  background: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid #d7aa00;
+}
+
+.promo-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+}
+
+.promo-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  border: 2px solid #d7aa00;
+}
+
+.promo-card h3 {
+  color: #d7aa00;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.promo-card p {
+  color: white;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.promo-btn {
+  background-color: #d7aa00;
+  color: black;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Alan Sans", sans-serif;
+}
+
+.promo-btn:hover {
+  background-color: #ffc800;
+}
+
+/* Light mode for promo */
+body.light-mode .hero-section {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  color: rgb(33, 37, 41);
+}
+
+body.light-mode .promo-card {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-color: #ffc800;
+}
+
+body.light-mode .promo-card h3 {
+  color: #b89500;
+}
+
+body.light-mode .promo-card p {
+  color: rgb(33, 37, 41);
+}
+
+/* Footer styles */
+.footer {
+  background-color: rgb(18, 18, 18);
+  color: white;
+  padding: 3rem 0 1rem;
+  margin-top: 4rem;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+/* Responsive footer */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .footer {
+    padding: 2rem 0 1rem;
+  }
+}
+
+.footer-section h4 {
+  color: #d7aa00;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.footer-section p {
+  color: rgb(200, 200, 200);
+  line-height: 1.6;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+  color: rgb(200, 200, 200);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #d7aa00;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-link {
+  color: rgb(200, 200, 200);
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-link:hover {
+  color: #d7aa00;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgb(44, 44, 44);
+  margin-top: 2rem;
+  color: rgb(150, 150, 150);
+}
+
+/* Light mode footer */
+body.light-mode .footer {
+  background-color: rgb(248, 249, 250);
+  color: rgb(33, 37, 41);
+}
+
+body.light-mode .footer-section h4 {
+  color: #b89500;
+}
+
+body.light-mode .footer-section p,
+body.light-mode .footer-section ul li a,
+body.light-mode .social-link {
+  color: rgb(33, 37, 41);
+}
+
+body.light-mode .footer-section ul li a:hover,
+body.light-mode .social-link:hover {
+  color: #b89500;
+}
+
+body.light-mode .footer-bottom {
+  color: rgb(108, 117, 125);
+  border-top-color: rgb(222, 226, 230);
+}

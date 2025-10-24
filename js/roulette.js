@@ -56,10 +56,21 @@ document.addEventListener("DOMContentLoaded", () => {
   populateBrainrots();
   populateRarities();
 
+  // Rarity selector event
+  document.getElementById("rarity-select").addEventListener("change", (e) => {
+    const selectedType = e.target.value;
+    document.getElementById("box-type").textContent =
+      selectedType.charAt(0).toUpperCase() + selectedType.slice(1);
+    populateWheel(selectedType);
+  });
+
   // Spin button event
   document
     .getElementById("spin-button")
-    .addEventListener("click", () => spinWheel(boxType));
+    .addEventListener("click", () => {
+      const selectedType = document.getElementById("rarity-select").value;
+      spinWheel(selectedType);
+    });
 
   // Open another button event
   document.getElementById("open-another").addEventListener("click", () => {
