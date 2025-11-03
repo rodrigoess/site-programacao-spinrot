@@ -80,6 +80,9 @@ function openBox(boxType) {
     const item = getRandomItem(items[boxType]);
     itemResult.textContent = item;
     modal.style.display = "block";
+
+    // Add won item to inventory
+    addToInventory(item, boxType);
   }, 2000);
 }
 
