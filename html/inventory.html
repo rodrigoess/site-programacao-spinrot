@@ -16,8 +16,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/roulette.css" />
-    <title>SpinRot - Roulette</title>
+    <link rel="stylesheet" href="../css/inventory.css" />
+    <title>SpinRot - Inventário</title>
   </head>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
@@ -43,7 +43,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#"
+              <a class="nav-link" href="gratis.html"
                 ><i class="ri-gift-2-fill"></i><span>Grátis</span></a
               >
             </li>
@@ -68,7 +68,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"
+              <a class="nav-link active" href="inventory.html"
                 ><i class="ri-home-smile-fill"></i><span>Inventário</span></a
               >
             </li>
@@ -159,38 +159,69 @@
     </nav>
   </header>
   <body>
-    <div class="roulette-container">
-      <h1>Roulette - <span id="box-type"></span></h1>
-      <div class="rarity-selector">
-        <label for="rarity-select">Escolha a raridade:</label>
-        <select id="rarity-select" class="rarity-dropdown">
-          <option value="rare">Rare</option>
-          <option value="epic">Epic</option>
-          <option value="legendary">Legendary</option>
-        </select>
-      </div>
-      <div class="roulette-wheel">
-        <div class="wheel" id="wheel">
-          <!-- Items will be populated by JS -->
+    <div class="hero-section">
+      <h1>Inventário - Seus Rots Coletados</h1>
+      <p>Veja todos os rots que você ganhou nas roletas e caixas!</p>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Seus Rots</h3>
+              <div id="inventory-list" class="inventory-list">
+                <!-- Inventory items will be populated here -->
+              </div>
+              <div id="empty-inventory" class="text-center mt-4" style="display: none;">
+                <p>Você ainda não tem nenhum rot no inventário.</p>
+                <p>Jogue nas roletas ou abra caixas para ganhar rots!</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="pointer"></div>
-      </div>
-      <div class="open-buttons">
-        <button id="spin-button" class="spin-btn">Spin</button>
-        <button id="open-another" class="spin-btn">Open Another</button>
-      </div>
-      <div class="brainrots-section">
-        <h2>Brainrots</h2>
-        <div id="brainrots-list"></div>
-      </div>
-      <div class="rarities-section">
-        <h2>Rarities</h2>
-        <div id="rarities-list"></div>
       </div>
     </div>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/roulette.js"></script>
-    <script src="../js/script.js"></script>
   </body>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>SpinRot</h4>
+        <p>Ganhe itens incríveis e divirta-se com nossas roletas e caixas!</p>
+      </div>
+      <div class="footer-section">
+        <h4>Links Rápidos</h4>
+        <ul>
+          <li><a href="roulette.html">Roletas</a></li>
+          <li><a href="boxes.html">Caixas</a></li>
+          <li><a href="gratis.html">Grátis</a></li>
+          <li><a href="#">Trocas</a></li>
+          <li><a href="#">Mercado</a></li>
+          <li><a href="inventory.html">Inventário</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Redes Sociais</h4>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="ri-facebook-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-twitter-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-instagram-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-youtube-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-discord-fill"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Contato</h4>
+        <p>Email: suporte@spinrot.com</p>
+        <p>Telefone: +351 123 456 789</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 SpinRot. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/script.js"></script>
+  <script src="../js/inventory.js"></script>
 </html>

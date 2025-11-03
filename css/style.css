@@ -320,17 +320,7 @@ body.light-mode .settings-option:hover {
   gap: 2rem;
   padding: 2rem;
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
-}
-
-/* Responsive promo container */
-@media (min-width: 768px) {
-  .promo-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
 }
 
 .promo-card {
@@ -511,4 +501,87 @@ body.light-mode .social-link:hover {
 body.light-mode .footer-bottom {
   color: rgb(108, 117, 125);
   border-top-color: rgb(222, 226, 230);
+}
+
+/* Grátis page styles */
+.gift-box {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(45deg, #ff6b6b, #feca57);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+.gift-box:hover {
+  transform: scale(1.05);
+}
+
+.gift-icon {
+  font-size: 80px;
+  color: white;
+}
+
+.timer-display {
+  margin: 20px 0;
+}
+
+.timer {
+  font-size: 48px;
+  font-weight: bold;
+  color: #333;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  display: inline-block;
+  min-width: 150px;
+}
+
+.reward-display {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  animation: fadeIn 0.5s ease;
+}
+
+.reward-coins {
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.balance-display {
+  background: linear-gradient(45deg, #ffc107, #fd7e14);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Button disabled state */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

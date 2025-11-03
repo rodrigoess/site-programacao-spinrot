@@ -16,8 +16,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/roulette.css" />
-    <title>SpinRot - Roulette</title>
+    <title>SpinRot - Grátis</title>
   </head>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
@@ -43,7 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#"
+              <a class="nav-link active" href="gratis.html"
                 ><i class="ri-gift-2-fill"></i><span>Grátis</span></a
               >
             </li>
@@ -159,38 +158,98 @@
     </nav>
   </header>
   <body>
-    <div class="roulette-container">
-      <h1>Roulette - <span id="box-type"></span></h1>
-      <div class="rarity-selector">
-        <label for="rarity-select">Escolha a raridade:</label>
-        <select id="rarity-select" class="rarity-dropdown">
-          <option value="rare">Rare</option>
-          <option value="epic">Epic</option>
-          <option value="legendary">Legendary</option>
-        </select>
-      </div>
-      <div class="roulette-wheel">
-        <div class="wheel" id="wheel">
-          <!-- Items will be populated by JS -->
+    <div class="hero-section">
+      <h1>Grátis - Ganha Moedas!</h1>
+      <p>Abre um presente a cada 10 minutos e ganha moedas para usar nas roletas e caixas!</p>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card text-center">
+            <div class="card-body">
+              <h2 class="card-title">Presente Diário</h2>
+              <div id="gift-box" class="gift-box">
+                <i class="ri-gift-2-fill gift-icon"></i>
+              </div>
+              <div id="timer-display" class="timer-display">
+                <p>Próximo presente em:</p>
+                <div class="timer" id="timer">10:00</div>
+              </div>
+              <button id="open-gift-btn" class="btn btn-success btn-lg mt-3" onclick="openGift()">
+                Abrir Presente
+              </button>
+              <div id="reward-display" class="reward-display mt-3" style="display: none;">
+                <h4>Parabéns! Você ganhou:</h4>
+                <div class="reward-coins">
+                  <i class="ri-coin-fill"></i>
+                  <span id="reward-amount">0</span> Moedas
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="pointer"></div>
       </div>
-      <div class="open-buttons">
-        <button id="spin-button" class="spin-btn">Spin</button>
-        <button id="open-another" class="spin-btn">Open Another</button>
-      </div>
-      <div class="brainrots-section">
-        <h2>Brainrots</h2>
-        <div id="brainrots-list"></div>
-      </div>
-      <div class="rarities-section">
-        <h2>Rarities</h2>
-        <div id="rarities-list"></div>
+
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body text-center">
+              <h3 class="card-title">Usar Moedas</h3>
+              <p class="card-text">Use suas moedas para abrir caixas ou girar roletas!</p>
+              <div class="d-flex justify-content-around">
+                <button class="btn btn-primary" onclick="openBoxes()" id="open-boxes-btn">
+                  <i class="ri-box-1-fill"></i> Abrir Caixas (10 Moedas)
+                </button>
+                <button class="btn btn-warning" onclick="spinRoulette()" id="spin-roulette-btn">
+                  <i class="ri-vip-diamond-fill"></i> Girar Roleta (2 Moedas)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/roulette.js"></script>
-    <script src="../js/script.js"></script>
   </body>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>SpinRot</h4>
+        <p>Ganhe itens incríveis e divirta-se com nossas roletas e caixas!</p>
+      </div>
+      <div class="footer-section">
+        <h4>Links Rápidos</h4>
+        <ul>
+          <li><a href="roulette.html">Roletas</a></li>
+          <li><a href="boxes.html">Caixas</a></li>
+          <li><a href="gratis.html">Grátis</a></li>
+          <li><a href="#">Trocas</a></li>
+          <li><a href="#">Mercado</a></li>
+          <li><a href="#">Inventário</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Redes Sociais</h4>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="ri-facebook-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-twitter-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-instagram-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-youtube-fill"></i></a>
+          <a href="#" class="social-link"><i class="ri-discord-fill"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Contato</h4>
+        <p>Email: suporte@spinrot.com</p>
+        <p>Telefone: +351 123 456 789</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 SpinRot. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/script.js"></script>
+  <script src="../js/gratis.js"></script>
 </html>

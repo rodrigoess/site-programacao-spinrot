@@ -1,0 +1,110 @@
+/* inventory.css - Styles for inventory page */
+
+.inventory-list {
+  margin-top: 2rem;
+}
+
+.rarity-section {
+  margin-bottom: 2rem;
+}
+
+.rarity-section h4 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid;
+  padding-bottom: 0.5rem;
+}
+
+.rarity-section.rare h4 {
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+.rarity-section.epic h4 {
+  border-color: #9C27B0;
+  color: #9C27B0;
+}
+
+.rarity-section.legendary h4 {
+  border-color: #FF9800;
+  color: #FF9800;
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.inventory-item-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inventory-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inventory-item-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.item-info h5 {
+  margin: 0.5rem 0;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.rarity-label {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.rarity-label.rare {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.rarity-label.epic {
+  background-color: #9C27B0;
+  color: white;
+}
+
+.rarity-label.legendary {
+  background-color: #FF9800;
+  color: white;
+}
+
+.item-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .inventory-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .inventory-item-card {
+    padding: 0.75rem;
+  }
+
+  .inventory-item-card img {
+    width: 80px;
+    height: 80px;
+  }
+}

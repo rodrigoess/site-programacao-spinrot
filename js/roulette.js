@@ -111,6 +111,15 @@ function getRandomColor() {
 
 // Spin the wheel
 function spinWheel(boxType) {
+  // Check if player has enough coins (2 coins required)
+  if (balance < 2) {
+    alert('Você precisa de 2 moedas para girar a roleta!');
+    return;
+  }
+
+  // Deduct 2 coins
+  spendCoins(2);
+
   const wheel = document.getElementById("wheel");
   const pool = items[boxType];
   const randomIndex = Math.floor(Math.random() * pool.length);
@@ -134,7 +143,11 @@ function spinWheel(boxType) {
   wheel.style.transform = `translateX(-${totalDistance}px)`;
 
   setTimeout(() => {
-    alert(`You won: ${pool[randomIndex]}`);
+    const wonItem = pool[randomIndex];
+    alert(`You won: ${wonItem}`);
+
+    // Add won item to inventory
+    addToInventory(wonItem, boxType);
   }, 5000);
 }
 
