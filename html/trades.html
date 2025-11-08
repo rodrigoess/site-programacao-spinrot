@@ -10,13 +10,14 @@
     <link
       rel="icon"
       href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
-    /> 
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style.css" />
-    <title>SpinRot - Buy Amazing Rots</title>
+    <link rel="stylesheet" href="../css/trades.css" />
+    <title>SpinRot - Trocas</title>
   </head>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
@@ -57,7 +58,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="trades.html"
+              <a class="nav-link active" href="trades.html"
                 ><i class="ri-arrow-left-right-line"></i><span>Trocas</span></a
               >
             </li>
@@ -74,6 +75,10 @@
           </ul>
 
           <div class="d-flex align-items-center">
+            <div class="balance-display me-3">
+              <i class="ri-coin-fill"></i>
+              <span id="balance">0</span> Moedas
+            </div>
             <button
               class="btn btn-warning me-2"
               onclick="window.location.href='login.html'"
@@ -155,48 +160,53 @@
   </header>
   <body>
     <div class="hero-section">
-      <h1>Bem-vindo ao SpinRot - Ganha Rots Incríveis!</h1>
-      <p>Explora as nossas opções e ganha itens únicos!</p>
+      <h1>Trocas - Troque Seus Brainrots</h1>
+      <p>Selecione itens do seu inventário para trocar com outros jogadores!</p>
     </div>
-    <div class="promo-container">
-      <div class="promo-card">
-        <img src="../img/roulette-promo.png" alt="Roletas" class="promo-img">
-        <h3>Roletas</h3>
-        <p>Gira a roda e ganha rots raros e épicos!</p>
-        <button class="promo-btn" onclick="window.location.href='roulette.html'">Jogar Agora</button>
-      </div>
-      <div class="promo-card">
-        <img src="../img/boxes-promo.png" alt="Caixas" class="promo-img">
-        <h3>Caixas</h3>
-        <p>Abre caixas e descubre itens lendários!</p>
-        <button class="promo-btn" onclick="window.location.href='boxes.html'">Abrir Caixas</button>
-      </div>
-      <div class="promo-card">
-        <img src="../img/free-promo.png" alt="Grátis" class="promo-img">
-        <h3>Grátis</h3>
-        <p>Joga gratuitamente e ganha sem gastar nada!</p>
-        <button class="promo-btn" onclick="window.location.href='#'">Jogar Grátis</button>
-      </div>
-      <div class="promo-card">
-        <img src="../img/trades-promo.png" alt="Trocas" class="promo-img">
-        <h3>Trocas</h3>
-        <p>Troque seus rots com outros jogadores!</p>
-        <button class="promo-btn" onclick="window.location.href='trades.html'">Trocar Agora</button>
-      </div>
-      <div class="promo-card">
-        <img src="../img/market-promo.png" alt="Mercado" class="promo-img">
-        <h3>Mercado</h3>
-        <p>Compre e venda rots no mercado!</p>
-        <button class="promo-btn" onclick="window.location.href='market.html'">Visitar Mercado</button>
-      </div>
-      <div class="promo-card">
-        <img src="../img/inventory-promo.png" alt="Inventário" class="promo-img">
-        <h3>Inventário</h3>
-        <p>Gere os teus rots coletados</p>
-        <button class="promo-btn" onclick="window.location.href='inventory.html'">Ver Inventário</button>
+
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Seus Itens para Troca</h3>
+              <div id="trade-inventory" class="trade-inventory">
+                <!-- Inventory items will be populated here -->
+              </div>
+              <div id="empty-trade-inventory" class="text-center mt-4" style="display: none;">
+                <p>Você não tem itens para trocar.</p>
+                <p>Jogue nas roletas ou abra caixas para ganhar itens!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Propor Troca</h3>
+              <div id="trade-offer" class="trade-offer">
+                <p>Selecione itens do seu inventário para propor uma troca.</p>
+                <div id="selected-items" class="selected-items">
+                  <!-- Selected items for trade -->
+                </div>
+                <button id="propose-trade" class="btn btn-primary mt-3" disabled>Propor Troca</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    
+
+    <!-- Trade Modal -->
+    <div id="trade-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Proposta de Troca</h2>
+        <p id="trade-details"></p>
+        <button id="accept-trade" class="btn btn-success">Aceitar</button>
+        <button id="reject-trade" class="btn btn-danger">Rejeitar</button>
+      </div>
+    </div>
   </body>
   <footer class="footer">
     <div class="footer-container">
@@ -236,6 +246,7 @@
     </div>
   </footer>
   <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/script.js"></script>
+  <script src="../js/trades.js"></script>
 </html>
