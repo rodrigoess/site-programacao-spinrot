@@ -1,0 +1,5 @@
+- [x] Change inventory-item-card background in light mode to black/gray gradient
+- [x] Change item-info h5 color in light mode to yellow
+- [x] Change rarity-section.rare h4 color to yellow
+- [x] Change rarity-label.rare background to yellow
+- [x] Remove or adjust light mode styles to default to dark
