@@ -1,22 +1,22 @@
 // script.js - Global balance and utility functions
 
 // Global balance management
-let balance = parseInt(localStorage.getItem('spinrot_balance')) || 0;
+let balance = parseInt(localStorage.getItem("spinrot_balance")) || 0;
 
 // Inventory management
-let inventory = JSON.parse(localStorage.getItem('spinrot_inventory')) || [];
+let inventory = JSON.parse(localStorage.getItem("spinrot_inventory")) || [];
 
 // Update balance display (works on any page with balance-display element)
 function updateBalanceDisplay() {
-  const balanceElements = document.querySelectorAll('.balance-display span');
-  balanceElements.forEach(element => {
+  const balanceElements = document.querySelectorAll(".balance-display span");
+  balanceElements.forEach((element) => {
     element.textContent = balance;
   });
 }
 
 // Save balance to localStorage
 function saveBalance() {
-  localStorage.setItem('spinrot_balance', balance.toString());
+  localStorage.setItem("spinrot_balance", balance.toString());
 }
 
 // Add coins to balance
@@ -40,7 +40,7 @@ function spendCoins(amount) {
 // Add item to inventory
 function addToInventory(item, rarity) {
   inventory.push({ item, rarity, date: new Date().toISOString() });
-  localStorage.setItem('spinrot_inventory', JSON.stringify(inventory));
+  localStorage.setItem("spinrot_inventory", JSON.stringify(inventory));
 }
 
 // Get inventory
@@ -98,7 +98,8 @@ const translations = {
     visitarMercado: "Visitar Mercado",
     verInventario: "Ver Inventário",
     spinrot: "SpinRot",
-    ganheItens: "Ganhe itens incríveis e divirta-se com nossas roletas e caixas!",
+    ganheItens:
+      "Ganhe itens incríveis e divirta-se com nossas roletas e caixas!",
     linksRapidos: "Links Rápidos",
     redesSociais: "Redes Sociais",
     contato: "Contato",
@@ -137,7 +138,8 @@ const translations = {
     visitarMercado: "Visitar Mercado",
     verInventario: "Ver Inventario",
     spinrot: "SpinRot",
-    ganheItens: "¡Gana artículos increíbles y diviértete con nuestras ruletas y cajas!",
+    ganheItens:
+      "¡Gana artículos increíbles y diviértete con nuestras ruletas y cajas!",
     linksRapidos: "Enlaces Rápidos",
     redesSociais: "Redes Sociales",
     contato: "Contacto",
@@ -208,39 +210,39 @@ function updateLanguage(lang) {
   }
 
   // Update hero section
-  const heroH1 = document.querySelector('.hero-section h1');
+  const heroH1 = document.querySelector(".hero-section h1");
   if (heroH1) heroH1.textContent = t.bemVindo;
-  const heroP = document.querySelector('.hero-section p');
+  const heroP = document.querySelector(".hero-section p");
   if (heroP) heroP.textContent = t.exploraOpcoes;
 
   // Update promo cards
-  const promoCards = document.querySelectorAll('.promo-card');
+  const promoCards = document.querySelectorAll(".promo-card");
   if (promoCards.length >= 6) {
-    promoCards[0].querySelector('p').textContent = t.roletasDesc;
-    promoCards[0].querySelector('.promo-btn').textContent = t.jogarAgora;
-    promoCards[1].querySelector('p').textContent = t.caixasDesc;
-    promoCards[1].querySelector('.promo-btn').textContent = t.abrirCaixas;
-    promoCards[2].querySelector('p').textContent = t.gratisDesc;
-    promoCards[2].querySelector('.promo-btn').textContent = t.jogarGratis;
-    promoCards[3].querySelector('p').textContent = t.trocasDesc;
-    promoCards[3].querySelector('.promo-btn').textContent = t.trocarAgora;
-    promoCards[4].querySelector('p').textContent = t.mercadoDesc;
-    promoCards[4].querySelector('.promo-btn').textContent = t.visitarMercado;
-    promoCards[5].querySelector('p').textContent = t.inventarioDesc;
-    promoCards[5].querySelector('.promo-btn').textContent = t.verInventario;
+    promoCards[0].querySelector("p").textContent = t.roletasDesc;
+    promoCards[0].querySelector(".promo-btn").textContent = t.jogarAgora;
+    promoCards[1].querySelector("p").textContent = t.caixasDesc;
+    promoCards[1].querySelector(".promo-btn").textContent = t.abrirCaixas;
+    promoCards[2].querySelector("p").textContent = t.gratisDesc;
+    promoCards[2].querySelector(".promo-btn").textContent = t.jogarGratis;
+    promoCards[3].querySelector("p").textContent = t.trocasDesc;
+    promoCards[3].querySelector(".promo-btn").textContent = t.trocarAgora;
+    promoCards[4].querySelector("p").textContent = t.mercadoDesc;
+    promoCards[4].querySelector(".promo-btn").textContent = t.visitarMercado;
+    promoCards[5].querySelector("p").textContent = t.inventarioDesc;
+    promoCards[5].querySelector(".promo-btn").textContent = t.verInventario;
   }
 
   // Update footer
-  const footerH4s = document.querySelectorAll('.footer-section h4');
+  const footerH4s = document.querySelectorAll(".footer-section h4");
   if (footerH4s.length >= 4) {
     footerH4s[0].textContent = t.spinrot;
     footerH4s[1].textContent = t.linksRapidos;
     footerH4s[2].textContent = t.redesSociais;
     footerH4s[3].textContent = t.contato;
   }
-  const footerP = document.querySelector('.footer-section p');
+  const footerP = document.querySelector(".footer-section p");
   if (footerP) footerP.textContent = t.ganheItens;
-  const footerLinks = document.querySelectorAll('.footer-section ul li a');
+  const footerLinks = document.querySelectorAll(".footer-section ul li a");
   if (footerLinks.length >= 6) {
     footerLinks[0].textContent = t.roletas;
     footerLinks[1].textContent = t.caixas;
@@ -249,12 +251,12 @@ function updateLanguage(lang) {
     footerLinks[4].textContent = t.mercado;
     footerLinks[5].textContent = t.inventario;
   }
-  const footerContact = document.querySelectorAll('.footer-section p');
+  const footerContact = document.querySelectorAll(".footer-section p");
   if (footerContact.length >= 3) {
     footerContact[1].textContent = t.email;
     footerContact[2].textContent = t.telefone;
   }
-  const footerBottom = document.querySelector('.footer-bottom p');
+  const footerBottom = document.querySelector(".footer-bottom p");
   if (footerBottom) footerBottom.innerHTML = t.direitosReservados;
 }
 
