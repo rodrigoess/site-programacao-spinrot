@@ -268,7 +268,7 @@ const translations = {
 // Function to update UI text based on language
 function updateLanguage(lang) {
   const t = translations[lang];
-  const navSpans = document.querySelectorAll('nav a[href="#"] span');
+  const navSpans = document.querySelectorAll("nav .nav-link span");
   if (navSpans.length >= 6) {
     navSpans[0].textContent = t.gratis;
     navSpans[1].textContent = t.roletas;
@@ -295,16 +295,22 @@ function updateLanguage(lang) {
   // Update promo cards
   const promoCards = document.querySelectorAll(".promo-card");
   if (promoCards.length >= 6) {
+    promoCards[0].querySelector("h3").textContent = t.roletas;
     promoCards[0].querySelector("p").textContent = t.roletasDesc;
     promoCards[0].querySelector(".promo-btn").textContent = t.jogarAgora;
+    promoCards[1].querySelector("h3").textContent = t.caixas;
     promoCards[1].querySelector("p").textContent = t.caixasDesc;
     promoCards[1].querySelector(".promo-btn").textContent = t.abrirCaixas;
+    promoCards[2].querySelector("h3").textContent = t.gratis;
     promoCards[2].querySelector("p").textContent = t.gratisDesc;
     promoCards[2].querySelector(".promo-btn").textContent = t.jogarGratis;
+    promoCards[3].querySelector("h3").textContent = t.trocas;
     promoCards[3].querySelector("p").textContent = t.trocasDesc;
     promoCards[3].querySelector(".promo-btn").textContent = t.trocarAgora;
+    promoCards[4].querySelector("h3").textContent = t.mercado;
     promoCards[4].querySelector("p").textContent = t.mercadoDesc;
     promoCards[4].querySelector(".promo-btn").textContent = t.visitarMercado;
+    promoCards[5].querySelector("h3").textContent = t.inventario;
     promoCards[5].querySelector("p").textContent = t.inventarioDesc;
     promoCards[5].querySelector(".promo-btn").textContent = t.verInventario;
   }
@@ -335,6 +341,22 @@ function updateLanguage(lang) {
   }
   const footerBottom = document.querySelector(".footer-bottom p");
   if (footerBottom) footerBottom.innerHTML = t.direitosReservados;
+
+  // Update page titles
+  const pageTitles = document.querySelectorAll("h1");
+  if (pageTitles.length > 0) {
+    // Assuming the first h1 is the main title
+    const title = pageTitles[0];
+    if (title.textContent.includes("Caixas")) {
+      title.textContent = t.caixas;
+    } else if (title.textContent.includes("Mercado")) {
+      title.textContent = t.mercado;
+    } else if (title.textContent.includes("Trocas")) {
+      title.textContent = t.trocas;
+    } else if (title.textContent.includes("Inventário")) {
+      title.textContent = t.inventario;
+    }
+  }
 }
 
 // Function to toggle settings panel
