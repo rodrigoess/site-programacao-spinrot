@@ -74,12 +74,20 @@
           </ul>
 
           <div class="d-flex align-items-center">
-            <button
-              class="btn btn-warning me-2"
-              onclick="window.location.href='login.html'"
-            >
-              <i class="ri-user-3-fill"></i><span>Inicie Sessão</span>
-            </button>
+            <div id="login-section">
+              <button
+                class="btn btn-warning me-2"
+                onclick="window.location.href='login.html'"
+              >
+                <i class="ri-user-3-fill"></i><span>Inicie Sessão</span>
+              </button>
+            </div>
+            <div id="user-section" style="display: none">
+              <span class="me-2" id="user-name"></span>
+              <button class="btn btn-danger me-2" onclick="logoutUser()">
+                <i class="ri-logout-box-r-line"></i> Logout
+              </button>
+            </div>
             <div class="btnd">
               <a
                 href="#"
@@ -159,6 +167,14 @@
       <p>Explora as nossas opções e ganha itens únicos!</p>
     </div>
     <div class="promo-container">
+      <div class="promo-card featured">
+        <img src="../img/free-promo.png" alt="Grátis" class="promo-img" />
+        <h3>Grátis</h3>
+        <p>Joga gratuitamente e ganha sem gastar nada!</p>
+        <button class="promo-btn" onclick="window.location.href='gratis.html'">
+          Jogar Grátis
+        </button>
+      </div>
       <div class="promo-card">
         <img src="../img/roulette-promo.png" alt="Roletas" class="promo-img" />
         <h3>Roletas</h3>
@@ -179,24 +195,20 @@
         </button>
       </div>
       <div class="promo-card">
-        <img src="../img/free-promo.png" alt="Grátis" class="promo-img" />
-        <h3>Grátis</h3>
-        <p>Joga gratuitamente e ganha sem gastar nada!</p>
-        <button class="promo-btn" onclick="window.location.href='#'">
-          Jogar Grátis
-        </button>
-      </div>
-      <div class="promo-card">
         <img src="../img/trades-promo.png" alt="Trocas" class="promo-img" />
         <h3>Trocas</h3>
         <p>Troque seus rots com outros jogadores!</p>
-        <button class="promo-btn" onclick="window.location.href='#'">Trocar Agora</button>
+        <button class="promo-btn" onclick="window.location.href='trades.html'">
+          Trocar Agora
+        </button>
       </div>
       <div class="promo-card">
         <img src="../img/market-promo.png" alt="Mercado" class="promo-img" />
         <h3>Mercado</h3>
         <p>Compre e venda rots no mercado!</p>
-        <button class="promo-btn" onclick="window.location.href='#'">Visitar Mercado</button>
+        <button class="promo-btn" onclick="window.location.href='market.html'">
+          Visitar Mercado
+        </button>
       </div>
       <div class="promo-card">
         <img
@@ -206,7 +218,12 @@
         />
         <h3>Inventário</h3>
         <p>Gere os teus rots coletados</p>
-        <button class="promo-btn" onclick="window.location.href='#'">Ver Inventário</button>
+        <button
+          class="promo-btn"
+          onclick="window.location.href='inventory.html'"
+        >
+          Ver Inventário
+        </button>
       </div>
     </div>
   </body>

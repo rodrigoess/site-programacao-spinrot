@@ -18,7 +18,7 @@
     <div class="container" id="container">
       <!-- Sign Up -->
       <div class="form-container sign-up">
-        <form>
+        <form id="signup-form">
           <h1>Criar Conta</h1>
           <div class="social-icons">
             <a href="#" class="icon"><i class="ri-google-fill"></i></a>
@@ -27,16 +27,21 @@
             <a href="#" class="icon"><i class="ri-phone-fill"></i></a>
           </div>
           <span>ou usa o teu email para o registo</span>
-          <input type="text" placeholder="Nome" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Palavra-passe" />
-          <button>Sign Up</button>
+          <input type="text" id="signup-name" placeholder="Nome" required />
+          <input type="email" id="signup-email" placeholder="Email" required />
+          <input
+            type="password"
+            id="signup-password"
+            placeholder="Palavra-passe"
+            required
+          />
+          <button type="submit">Sign Up</button>
         </form>
       </div>
 
       <!-- Sign In -->
       <div class="form-container sign-in">
-        <form>
+        <form id="signin-form">
           <h1>Iniciar Sessão</h1>
           <div class="social-icons">
             <a href="#" class="icon"><i class="ri-google-fill"></i></a>
@@ -45,10 +50,15 @@
             <a href="#" class="icon"><i class="ri-phone-fill"></i></a>
           </div>
           <span>ou usa a palavra-passe da tua conta</span>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Palavra-passe" />
+          <input type="email" id="signin-email" placeholder="Email" required />
+          <input
+            type="password"
+            id="signin-password"
+            placeholder="Palavra-passe"
+            required
+          />
           <a href="#">Esqueceste-te da palavra-passe?</a>
-          <button>Sign In</button>
+          <button type="submit">Sign In</button>
         </form>
       </div>
 

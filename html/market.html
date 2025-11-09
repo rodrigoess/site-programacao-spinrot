@@ -96,7 +96,7 @@
               </a>
               <div class="settings-panel" id="settingsPanel">
                 <div class="settings-section">
-                  <h6><span>Idioma</span></h6>
+                  <h6 id="lang-label">Idioma</h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -113,7 +113,7 @@
                   </div>
                 </div>
                 <div class="settings-section">
-                  <h6><span>Modo</span></h6>
+                  <h6 id="mode-label">Modo</h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -129,7 +129,7 @@
                   </div>
                 </div>
                 <div class="settings-section">
-                  <h6><span>Moeda</span></h6>
+                  <h6 id="currency-label">Moeda</h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -173,7 +173,11 @@
               <div id="market-list" class="market-list">
                 <!-- Market items will be populated here -->
               </div>
-              <div id="empty-market" class="text-center mt-4" style="display: none;">
+              <div
+                id="empty-market"
+                class="text-center mt-4"
+                style="display: none"
+              >
                 <p>Não há itens à venda no momento.</p>
               </div>
             </div>
@@ -189,7 +193,11 @@
               <div id="sell-inventory" class="sell-inventory">
                 <!-- Inventory items for selling will be populated here -->
               </div>
-              <div id="empty-sell-inventory" class="text-center mt-4" style="display: none;">
+              <div
+                id="empty-sell-inventory"
+                class="text-center mt-4"
+                style="display: none"
+              >
                 <p>Você não tem itens para vender.</p>
               </div>
             </div>
@@ -217,9 +225,11 @@
         <p id="sell-item-details"></p>
         <div class="form-group">
           <label for="sell-price">Preço (Moedas):</label>
-          <input type="number" id="sell-price" min="1" class="form-control">
+          <input type="number" id="sell-price" min="1" class="form-control" />
         </div>
-        <button id="confirm-sell" class="btn btn-success mt-3">Colocar à Venda</button>
+        <button id="confirm-sell" class="btn btn-success mt-3">
+          Colocar à Venda
+        </button>
         <button id="cancel-sell" class="btn btn-secondary">Cancelar</button>
       </div>
     </div>

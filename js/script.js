@@ -65,6 +65,83 @@ if (container && registerBtn && loginBtn) {
   });
 }
 
+// Authentication functions
+function registerUser(name, email, password) {
+  const users = JSON.parse(localStorage.getItem("spinrot_users")) || [];
+  const existingUser = users.find((user) => user.email === email);
+  if (existingUser) {
+    alert("Email já registado!");
+    return false;
+  }
+  users.push({ name, email, password });
+  localStorage.setItem("spinrot_users", JSON.stringify(users));
+  localStorage.setItem("spinrot_logged_in", JSON.stringify({ name, email }));
+  return true;
+}
+
+function loginUser(email, password) {
+  const users = JSON.parse(localStorage.getItem("spinrot_users")) || [];
+  const user = users.find(
+    (user) => user.email === email && user.password === password
+  );
+  if (user) {
+    localStorage.setItem(
+      "spinrot_logged_in",
+      JSON.stringify({ name: user.name, email: user.email })
+    );
+    return true;
+  }
+  return false;
+}
+
+function logoutUser() {
+  localStorage.removeItem("spinrot_logged_in");
+  window.location.href = "login.html";
+}
+
+function isLoggedIn() {
+  return localStorage.getItem("spinrot_logged_in") !== null;
+}
+
+function getLoggedInUser() {
+  return JSON.parse(localStorage.getItem("spinrot_logged_in"));
+}
+
+// Form handlers
+document.addEventListener("DOMContentLoaded", () => {
+  const signupForm = document.getElementById("signup-form");
+  const signinForm = document.getElementById("signin-form");
+
+  if (signupForm) {
+    signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("signup-name").value;
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+
+      if (registerUser(name, email, password)) {
+        alert("Conta criada com sucesso!");
+        window.location.href = "index.html";
+      }
+    });
+  }
+
+  if (signinForm) {
+    signinForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("signin-email").value;
+      const password = document.getElementById("signin-password").value;
+
+      if (loginUser(email, password)) {
+        alert("Login bem-sucedido!");
+        window.location.href = "index.html";
+      } else {
+        alert("Email ou palavra-passe incorretos!");
+      }
+    });
+  }
+});
+
 // Translations object
 const translations = {
   pt: {
@@ -202,12 +279,12 @@ function updateLanguage(lang) {
   }
   const btnSpan = document.querySelector(".btn span");
   if (btnSpan) btnSpan.textContent = t.iniciarSessao;
-  const settingsSections = document.querySelectorAll(".settings-section h6");
-  if (settingsSections.length >= 3) {
-    settingsSections[0].textContent = t.idioma;
-    settingsSections[1].textContent = t.modo;
-    settingsSections[2].textContent = t.moeda;
-  }
+  const langLabel = document.getElementById("lang-label");
+  const modeLabel = document.getElementById("mode-label");
+  const currencyLabel = document.getElementById("currency-label");
+  if (langLabel) langLabel.textContent = t.idioma;
+  if (modeLabel) modeLabel.textContent = t.modo;
+  if (currencyLabel) currencyLabel.textContent = t.moeda;
 
   // Update hero section
   const heroH1 = document.querySelector(".hero-section h1");
@@ -268,8 +345,25 @@ function toggleSettingsPanel() {
   }
 }
 
+// Check login status and update UI
+function checkLoginStatus() {
+  if (isLoggedIn()) {
+    const user = getLoggedInUser();
+    const loginSection = document.getElementById("login-section");
+    const userSection = document.getElementById("user-section");
+    const userName = document.getElementById("user-name");
+
+    if (loginSection) loginSection.style.display = "none";
+    if (userSection) userSection.style.display = "flex";
+    if (userName) userName.textContent = `Olá, ${user.name}!`;
+  }
+}
+
 // Settings functionality
 document.addEventListener("DOMContentLoaded", () => {
+  // Check login status
+  checkLoginStatus();
+
   // Load saved preferences
   const savedLang = localStorage.getItem("language") || "pt";
   const savedMode = localStorage.getItem("theme") || "dark";
