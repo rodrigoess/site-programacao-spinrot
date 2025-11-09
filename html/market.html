@@ -75,9 +75,8 @@
           </ul>
 
           <div class="d-flex align-items-center">
-            <div class="balance-display me-3">
-              <i class="ri-coin-fill"></i>
-              <span id="balance">0</span> Moedas
+            <div id="coin-display" class="me-3 text-white">
+              <i class="ri-coin-fill"></i> <span id="coin-amount">0</span>
             </div>
             <button
               class="btn btn-warning me-2"
@@ -96,7 +95,7 @@
               </a>
               <div class="settings-panel" id="settingsPanel">
                 <div class="settings-section">
-                  <h6 id="lang-label">Idioma</h6>
+                  <h6><span>Idioma</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -113,7 +112,7 @@
                   </div>
                 </div>
                 <div class="settings-section">
-                  <h6 id="mode-label">Modo</h6>
+                  <h6><span>Modo</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -129,7 +128,7 @@
                   </div>
                 </div>
                 <div class="settings-section">
-                  <h6 id="currency-label">Moeda</h6>
+                  <h6><span>Moeda</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -188,8 +187,8 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title">Vender Seus Itens</h3>
-              <p>Selecione itens do seu inventário para vender no mercado.</p>
+              <h3 class="card-title">Vende os Teus Rots</h3>
+              <p>Seleciona itens do teu inventário para vender no mercado.</p>
               <div id="sell-inventory" class="sell-inventory">
                 <!-- Inventory items for selling will be populated here -->
               </div>
@@ -231,6 +230,13 @@
           Colocar à Venda
         </button>
         <button id="cancel-sell" class="btn btn-secondary">Cancelar</button>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification" style="display: none">
+      <div class="notification-content">
+        <span id="notification-message"></span>
       </div>
     </div>
   </body>

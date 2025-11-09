@@ -59,10 +59,13 @@ function displayInventory() {
         const itemCard = document.createElement("div");
         itemCard.className = "inventory-item-card";
 
+        const imageSrc = itemImages[itemData.item]
+          ? `../img/${itemImages[itemData.item]}`
+          : `https://via.placeholder.com/100x100?text=${encodeURIComponent(
+              itemData.item
+            )}`;
         itemCard.innerHTML = `
-          <img src="https://via.placeholder.com/100x100?text=${encodeURIComponent(
-            itemData.item
-          )}" alt="${itemData.item}" />
+          <img src="${imageSrc}" alt="${itemData.item}" />
           <div class="item-info">
             <h5>${itemData.item}</h5>
             <p class="rarity-label ${rarity}">${

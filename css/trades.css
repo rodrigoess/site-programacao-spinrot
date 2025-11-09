@@ -16,15 +16,15 @@
 }
 
 .rarity-section.rare h4 {
-  border-color: #4CAF50;
+  border-color: #4caf50;
 }
 
 .rarity-section.epic h4 {
-  border-color: #9C27B0;
+  border-color: #9c27b0;
 }
 
 .rarity-section.legendary h4 {
-  border-color: #FF9800;
+  border-color: #ff9800;
 }
 
 .trade-items-grid {
@@ -76,17 +76,17 @@
 }
 
 .trade-item-card .rarity-label.rare {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 
 .trade-item-card .rarity-label.epic {
-  background-color: #9C27B0;
+  background-color: #9c27b0;
   color: white;
 }
 
 .trade-item-card .rarity-label.legendary {
-  background-color: #FF9800;
+  background-color: #ff9800;
   color: white;
 }
 

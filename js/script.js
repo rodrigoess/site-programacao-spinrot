@@ -1,7 +1,15 @@
 // script.js - Global balance and utility functions
 
 // Global balance management
-let balance = parseInt(localStorage.getItem("spinrot_balance")) || 0;
+let balance = Math.max(
+  parseInt(localStorage.getItem("spinrot_balance")) || 0,
+  parseInt(localStorage.getItem("coins")) || 0
+);
+// Always set spinrot_balance to the current balance and remove old key
+localStorage.setItem("spinrot_balance", balance.toString());
+if (localStorage.getItem("coins")) {
+  localStorage.removeItem("coins");
+}
 
 // Inventory management
 let inventory = JSON.parse(localStorage.getItem("spinrot_inventory")) || [];
@@ -12,6 +20,16 @@ function updateBalanceDisplay() {
   balanceElements.forEach((element) => {
     element.textContent = balance;
   });
+  // Also update coin display
+  const coinAmount = document.getElementById("coin-amount");
+  if (coinAmount) {
+    coinAmount.textContent = balance;
+  }
+}
+
+// Update coin display (alias for updateBalanceDisplay)
+function updateCoinDisplay() {
+  updateBalanceDisplay();
 }
 
 // Save balance to localStorage
@@ -141,6 +159,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Map items to their image files (shared across all pages)
+const itemImages = {
+  "Brr Brr Patapim": "Brr Brr Patapim.jpg",
+  "Cappuccino Assassino": "Cappuccino Assassino.png",
+  "Ballerina Cappuccina": "Ballerina Cappuccina.jfif",
+  "Blueberrinni Octopussini": "Blueberrinni Octopussini.jfif",
+  "Apollino Cappuccino": "Apollino Cappuccino.jpg",
+  "Canyelloni Dragoni": "Canyelloni Dragoni.jpg",
+  "Capybarelli Bananalelli": "Capybarelli Bananalelli.jfif",
+  Carloooooo: "Carloooooo.jpg",
+  "Trippi Troppi": "Trippi Troppi.png",
+  "Frigo Camelo": "Frigo Camelo.webp",
+  "La Vaca Saturno Saturnita": "La Vaca Saturno Saturnita.jpeg",
+  "Girafa Celestre": "Girafa Celestre.jfif",
+  "Bobrito Bandito": "Bobrito Bandito.jfif",
+  "Lirilì Larilà": "Lirilì Larilà.jfif",
+  "Chimpanzini Bananini": "Chimpanzini Bananini.jfif",
+  "Bombombini Gusini": "Bombombini Gusini.jfif",
+  "Tung Tung Tung Sahur": "Tung Tung Tung Sahur.jfif",
+  "Boneca Ambalabu": "Boneca Ambalabu.webp",
+  "Tralalero Tralala": "Tralalero Tralala.jfif",
+  "Bombardiro Crocodilo": "Bombardiro Crocodilo.jpg",
+  "Brainrot Azul": "Blueberrinni Octopussini.jfif", // Placeholder mapping
+  "Brainrot Verde": "Girafa Celestre.jfif", // Placeholder mapping
+  "Brainrot Dourado": "Lirilì Larilà.jfif", // Placeholder mapping
+};
 
 // Translations object
 const translations = {
@@ -284,7 +329,6 @@ function updateLanguage(lang) {
   const currencyLabel = document.getElementById("currency-label");
   if (langLabel) langLabel.textContent = t.idioma;
   if (modeLabel) modeLabel.textContent = t.modo;
-  if (currencyLabel) currencyLabel.textContent = t.moeda;
 
   // Update hero section
   const heroH1 = document.querySelector(".hero-section h1");
@@ -383,13 +427,15 @@ function checkLoginStatus() {
 
 // Settings functionality
 document.addEventListener("DOMContentLoaded", () => {
+  // Update balance display on page load
+  updateBalanceDisplay();
+
   // Check login status
   checkLoginStatus();
 
   // Load saved preferences
   const savedLang = localStorage.getItem("language") || "pt";
   const savedMode = localStorage.getItem("theme") || "dark";
-  const savedCurrency = localStorage.getItem("currency") || "EUR";
 
   // Apply saved theme
   if (savedMode === "light") {
@@ -402,15 +448,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize current selections
   const currentLang = document.getElementById("current-lang");
   const currentMode = document.getElementById("current-mode");
-  const currentCurrency = document.getElementById("current-currency");
 
   const langMap = { pt: "Português", es: "Español", en: "English" };
   const modeMap = { dark: "Escuro", light: "Claro" };
-  const currencyMap = { EUR: "EUR", USD: "USD", GBP: "GBP" };
 
   if (currentLang) currentLang.textContent = langMap[savedLang];
   if (currentMode) currentMode.textContent = modeMap[savedMode];
-  if (currentCurrency) currentCurrency.textContent = currencyMap[savedCurrency];
 
   // Close panel when clicking outside
   document.addEventListener("click", (e) => {
@@ -466,17 +509,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (currentMode) currentMode.textContent = modeMap[mode];
       const modeOptions = document.getElementById("mode-options");
       if (modeOptions) modeOptions.classList.remove("active");
-    });
-  });
-
-  // Currency options
-  document.querySelectorAll("#currency-options .option").forEach((option) => {
-    option.addEventListener("click", (e) => {
-      const currency = e.target.getAttribute("data-currency");
-      localStorage.setItem("currency", currency);
-      if (currentCurrency) currentCurrency.textContent = currencyMap[currency];
-      const currencyOptions = document.getElementById("currency-options");
-      if (currencyOptions) currencyOptions.classList.remove("active");
     });
   });
 });

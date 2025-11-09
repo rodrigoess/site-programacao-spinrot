@@ -74,6 +74,9 @@
           </ul>
 
           <div class="d-flex align-items-center">
+            <div id="coin-display" class="me-3 text-white">
+              <i class="ri-coin-fill"></i> <span id="coin-amount">0</span>
+            </div>
             <div id="login-section">
               <button
                 class="btn btn-warning me-2"
@@ -83,7 +86,10 @@
               </button>
             </div>
             <div id="user-section" style="display: none">
-              <span class="me-2" id="user-name"></span>
+              <span
+                class="me-2 d-flex align-items-center"
+                id="user-name"
+              ></span>
               <button class="btn btn-danger me-2" onclick="logoutUser()">
                 <i class="ri-logout-box-r-line"></i> Logout
               </button>
@@ -131,23 +137,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="settings-section">
-                  <h6><span>Moeda</span></h6>
-                  <div class="dropdown-container">
-                    <button
-                      type="button"
-                      class="current-selection"
-                      id="current-currency"
-                    >
-                      EUR
-                    </button>
-                    <div class="dropdown-options" id="currency-options">
-                      <div class="option" data-currency="EUR">EUR</div>
-                      <div class="option" data-currency="USD">USD</div>
-                      <div class="option" data-currency="GBP">GBP</div>
-                    </div>
-                  </div>
-                </div>
               </div>
               <a href="#" class="btn btn-secondary me-1"
                 ><i class="ri-heart-fill"></i
@@ -168,15 +157,11 @@
     </div>
     <div class="promo-container">
       <div class="promo-card featured">
-        <img src="../img/free-promo.png" alt="Grátis" class="promo-img" />
-        <h3>Grátis</h3>
-        <p>Joga gratuitamente e ganha sem gastar nada!</p>
-        <button class="promo-btn" onclick="window.location.href='gratis.html'">
-          Jogar Grátis
-        </button>
-      </div>
-      <div class="promo-card">
-        <img src="../img/roulette-promo.png" alt="Roletas" class="promo-img" />
+        <img
+          src="../img/Ballerina Cappuccina.jfif"
+          alt="Roletas"
+          class="promo-img"
+        />
         <h3>Roletas</h3>
         <p>Gira a roda e ganha rots raros e épicos!</p>
         <button
@@ -187,37 +172,57 @@
         </button>
       </div>
       <div class="promo-card">
-        <img src="../img/boxes-promo.png" alt="Caixas" class="promo-img" />
+        <img
+          src="../img/Blueberrinni Octopussini.jfif"
+          alt="Caixas"
+          class="promo-img"
+        />
         <h3>Caixas</h3>
-        <p>Abre caixas e descubre itens lendários!</p>
+        <p>Abre caixas e descobre itens lendários!</p>
         <button class="promo-btn" onclick="window.location.href='boxes.html'">
           Abrir Caixas
         </button>
       </div>
       <div class="promo-card">
-        <img src="../img/trades-promo.png" alt="Trocas" class="promo-img" />
+        <img
+          src="../img/Apollino Cappuccino.jpg"
+          alt="Grátis"
+          class="promo-img"
+        />
+        <h3>Grátis</h3>
+        <p>Joga gratuitamente e ganha sem gastar nada!</p>
+        <button class="promo-btn" onclick="window.location.href='gratis.html'">
+          Jogar Grátis
+        </button>
+      </div>
+      <div class="promo-card">
+        <img src="../img/Bobrito Bandito.jfif" alt="Trocas" class="promo-img" />
         <h3>Trocas</h3>
-        <p>Troque seus rots com outros jogadores!</p>
+        <p>Troca os teus rots com outros jogadores!</p>
         <button class="promo-btn" onclick="window.location.href='trades.html'">
           Trocar Agora
         </button>
       </div>
       <div class="promo-card">
-        <img src="../img/market-promo.png" alt="Mercado" class="promo-img" />
+        <img
+          src="../img/Bombardiro Crocodilo.jpg"
+          alt="Mercado"
+          class="promo-img"
+        />
         <h3>Mercado</h3>
-        <p>Compre e venda rots no mercado!</p>
+        <p>Compra e vende rots no mercado!</p>
         <button class="promo-btn" onclick="window.location.href='market.html'">
           Visitar Mercado
         </button>
       </div>
       <div class="promo-card">
         <img
-          src="../img/inventory-promo.png"
+          src="../img/Bombombini Gusini.jfif"
           alt="Inventário"
           class="promo-img"
         />
         <h3>Inventário</h3>
-        <p>Gere os teus rots coletados</p>
+        <p>Vê os teus rots recolhidos</p>
         <button
           class="promo-btn"
           onclick="window.location.href='inventory.html'"

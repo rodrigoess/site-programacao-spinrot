@@ -3,41 +3,35 @@
 // Define brainrot items with rarity pools (same as boxes.js)
 const items = {
   rare: [
-    "Tralalero Tralala",
-    "Bombardiro Crocodilo",
-    "Tung Tung Tung Sahur",
-    "Lirilì Larilà",
-    "Ballerina Cappuccina",
-    "Cappuccino Assassino",
     "Brr Brr Patapim",
-    "Boneca Ambalabu",
-    "Trippi Troppi",
-    "Chimpanzini Bananini",
+    "Cappuccino Assassino",
+    "Ballerina Cappuccina",
+    "Blueberrinni Octopussini",
+    "Apollino Cappuccino",
+    "Canyelloni Dragoni",
+    "Capybarelli Bananalelli",
+    "Carloooooo",
   ],
   epic: [
-    "Bombombini Gusini",
+    "Trippi Troppi",
     "Frigo Camelo",
     "La Vaca Saturno Saturnita",
     "Girafa Celestre",
     "Bobrito Bandito",
-    "Frulli Frulla",
-    "Orangutini Ananasini",
-    "Il Cacto Hipopotamo",
-    "Blueberrinni Octopussini",
-    "Rhino Toasterino",
   ],
-  legendary: [
-    "Zibra Zubra Zibralini",
-    "Graipussi Medussi",
-    "Tigrrullini Watermellini",
-    "Tracotucotulu Delapeladustuz",
-    "Chimpanzini Capuchini",
-    "Gorillo Watermellondrillo",
-    "Burbaloni Luliloli",
-    "Bobrini Cocosini",
-    "Cocofanto Elefanto",
-    "Bananita Dolfinita",
-  ],
+  legendary: ["Lirilì Larilà", "Chimpanzini Bananini", "Bombombini Gusini"],
+  mythical: ["Tung Tung Tung Sahur", "Boneca Ambalabu"],
+  secret: ["Tralalero Tralala", "Bombardiro Crocodilo"],
+};
+
+// Roulette costs in coins
+const rouletteCosts = {
+  rare: 5,
+  epic: 10,
+  legendary: 20,
+  mythical: 50,
+  secret: 100,
+  all: 10,
 };
 
 // Get URL parameters
@@ -48,29 +42,20 @@ function getQueryParam(param) {
 
 // Initialize page
 document.addEventListener("DOMContentLoaded", () => {
-  const boxType = getQueryParam("type") || "rare";
+  const boxType = getQueryParam("type") || "all";
   document.getElementById("box-type").textContent =
-    boxType.charAt(0).toUpperCase() + boxType.slice(1);
+    boxType === "all"
+      ? "All Brainrots"
+      : boxType.charAt(0).toUpperCase() + boxType.slice(1);
 
-  populateWheel(boxType);
-  populateBrainrots();
+  populateSlot();
   populateRarities();
-
-  // Rarity selector event
-  document.getElementById("rarity-select").addEventListener("change", (e) => {
-    const selectedType = e.target.value;
-    document.getElementById("box-type").textContent =
-      selectedType.charAt(0).toUpperCase() + selectedType.slice(1);
-    populateWheel(selectedType);
-  });
+  updateBalanceDisplay();
 
   // Spin button event
   document
     .getElementById("spin-button")
-    .addEventListener("click", () => {
-      const selectedType = document.getElementById("rarity-select").value;
-      spinWheel(selectedType);
-    });
+    .addEventListener("click", () => spinSlot());
 
   // Open another button event
   document.getElementById("open-another").addEventListener("click", () => {
@@ -78,105 +63,179 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Populate the wheel with items
-function populateWheel(boxType) {
-  const wheel = document.getElementById("wheel");
-  const pool = items[boxType];
+// Populate the slot with items
+function populateSlot() {
+  const slotTrack = document.getElementById("slot-track");
+  const boxType = getQueryParam("type") || "all";
 
-  // Add multiple copies for smooth sliding effect
-  const extendedPool = [...pool, ...pool, ...pool, ...pool, ...pool, ...pool]; // Repeat items 6 times
-
-  extendedPool.forEach((item, index) => {
-    const segment = document.createElement("div");
-    segment.className = "wheel-segment";
-    segment.textContent = item;
-    wheel.appendChild(segment);
-  });
-}
-
-// Get random color for wheel segments
-function getRandomColor() {
-  const colors = [
-    "#FF6B6B",
-    "#4ECDC4",
-    "#45B7D1",
-    "#FFA07A",
-    "#98D8C8",
-    "#F7DC6F",
-    "#BB8FCE",
-    "#85C1E9",
-  ];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
-
-// Spin the wheel
-function spinWheel(boxType) {
-  // Check if player has enough coins (2 coins required)
-  if (balance < 2) {
-    alert('Você precisa de 2 moedas para girar a roleta!');
-    return;
+  // Filter items based on boxType
+  let selectedItems;
+  if (boxType === "all") {
+    selectedItems = [
+      ...items.rare,
+      ...items.epic,
+      ...items.legendary,
+      ...items.mythical,
+      ...items.secret,
+    ];
+  } else {
+    selectedItems = items[boxType] || [];
   }
 
-  // Deduct 2 coins
-  spendCoins(2);
+  // Duplicate items multiple times for smooth scrolling
+  const duplicatedItems = [];
+  for (let i = 0; i < 20; i++) {
+    duplicatedItems.push(...selectedItems);
+  }
 
-  const wheel = document.getElementById("wheel");
-  const pool = items[boxType];
-  const randomIndex = Math.floor(Math.random() * pool.length);
-  const itemWidth = 200; // Match the CSS flex width
-  const containerWidth = document.querySelector(".roulette-wheel").offsetWidth;
-  const pointerOffset = containerWidth / 2;
+  duplicatedItems.forEach((item) => {
+    const slotItem = document.createElement("div");
+    slotItem.className = "slot-item";
 
-  // Reset wheel to initial position before spinning
-  wheel.style.transform = "translateX(0px)";
-
-  // Add multiple full spins to ensure forward movement
-  const spins = 5;
-  const fullSpinDistance = spins * pool.length * itemWidth;
-
-  // Calculate the position to slide to center the winning item under the pointer
-  const slideDistance = randomIndex * itemWidth - pointerOffset + itemWidth / 2;
-
-  // Total distance: full spins + slide to item
-  const totalDistance = fullSpinDistance + slideDistance;
-
-  wheel.style.transform = `translateX(-${totalDistance}px)`;
-
-  setTimeout(() => {
-    const wonItem = pool[randomIndex];
-    alert(`You won: ${wonItem}`);
-
-    // Add won item to inventory
-    addToInventory(wonItem, boxType);
-  }, 5000);
-}
-
-// Populate brainrots list
-function populateBrainrots() {
-  const brainrotsList = document.getElementById("brainrots-list");
-  const allItems = Object.values(items).flat();
-
-  allItems.forEach((item) => {
-    const itemDiv = document.createElement("div");
-    itemDiv.className = "brainrot-item";
-
-    // Create image element with placeholder
+    // Create image element
     const img = document.createElement("img");
-    img.src = `https://via.placeholder.com/100x100?text=${encodeURIComponent(
-      item
-    )}`;
+    img.src = `../img/${itemImages[item]}`;
     img.alt = item;
     img.style.width = "100px";
     img.style.height = "100px";
-    img.style.marginBottom = "0.5rem";
+    img.style.objectFit = "cover";
+    img.style.borderRadius = "5px";
 
     // Add text below image
     const text = document.createElement("div");
     text.textContent = item;
+    text.style.fontSize = "0.8rem";
+    text.style.marginTop = "0.5rem";
+    text.style.color = "white";
+    text.style.textShadow = "1px 1px 2px rgba(0,0,0,0.8)";
 
-    itemDiv.appendChild(img);
-    itemDiv.appendChild(text);
-    brainrotsList.appendChild(itemDiv);
+    slotItem.appendChild(img);
+    slotItem.appendChild(text);
+    slotItem.title = item;
+
+    // Determine rarity and set color
+    let rarity = "rare";
+    if (items.epic.includes(item)) rarity = "epic";
+    else if (items.legendary.includes(item)) rarity = "legendary";
+    else if (items.mythical.includes(item)) rarity = "mythical";
+    else if (items.secret.includes(item)) rarity = "secret";
+    slotItem.style.backgroundColor = getRarityColor(rarity);
+
+    slotTrack.appendChild(slotItem);
+  });
+}
+
+// Get color based on rarity
+function getRarityColor(rarity) {
+  const colors = {
+    rare: "#808080", // Gray
+    epic: "#800080", // Purple
+    legendary: "#FFA500", // Orange
+    mythical: "#FF0000", // Red
+    secret: "#000000", // Black
+  };
+  return colors[rarity] || "#808080";
+}
+
+// Get rarity from item name
+function getRarityFromItem(item) {
+  if (items.rare.includes(item)) return "rare";
+  if (items.epic.includes(item)) return "epic";
+  if (items.legendary.includes(item)) return "legendary";
+  if (items.mythical.includes(item)) return "mythical";
+  if (items.secret.includes(item)) return "secret";
+  return "rare"; // default
+}
+
+// Spin the slot
+function spinSlot() {
+  const slotTrack = document.getElementById("slot-track");
+  const spinButton = document.getElementById("spin-button");
+  const boxType = getQueryParam("type") || "all";
+
+  // Check if player has enough coins
+  const cost = rouletteCosts[boxType];
+  if (balance < cost) {
+    alert(`Você não tem moedas suficientes! Precisa de ${cost} moedas.`);
+    return;
+  }
+  spendCoins(cost);
+
+  // Reset position to start for consistent spins
+  gsap.set(slotTrack, { x: 0 });
+
+  // Filter items based on boxType
+  let selectedItems;
+  if (boxType === "all") {
+    selectedItems = [
+      ...items.rare,
+      ...items.epic,
+      ...items.legendary,
+      ...items.mythical,
+      ...items.secret,
+    ];
+  } else {
+    selectedItems = items[boxType] || [];
+  }
+
+  // Define rarity chances for "all" mode
+  const rarityChances = {
+    rare: 40,
+    epic: 30,
+    legendary: 20,
+    mythical: 8,
+    secret: 2,
+  };
+
+  // Apply rarity chances for "all" mode, skipping empty pools
+  let winningItem;
+  if (boxType === "all") {
+    const rand = Math.random() * 100;
+    let cumulative = 0;
+    for (const [rarity, chance] of Object.entries(rarityChances)) {
+      cumulative += chance;
+      if (rand < cumulative && items[rarity].length > 0) {
+        winningItem =
+          items[rarity][Math.floor(Math.random() * items[rarity].length)];
+        break;
+      }
+    }
+  } else {
+    winningItem =
+      selectedItems[Math.floor(Math.random() * selectedItems.length)];
+  }
+
+  const numItems = selectedItems.length;
+  const itemWidth = 150; // Width of each slot item
+  const randomIndex = selectedItems.indexOf(winningItem);
+
+  // Calculate the distance to scroll to center the winning item
+  // The pointer is at center, so we need to scroll so that the winning item is at the center
+  const containerWidth = document.querySelector(".slot-machine").offsetWidth;
+  const centerOffset = containerWidth / 2 - itemWidth / 2;
+
+  // Calculate spin distance to always move left (negative direction)
+  // Spin multiple full cycles plus the exact position to center the winning item
+  const fullCycles = 5; // Number of full cycles to spin
+  const spinDistance =
+    (randomIndex + numItems * fullCycles) * itemWidth - centerOffset;
+  const targetPosition = -spinDistance;
+
+  // Disable button during spin
+  spinButton.disabled = true;
+  spinButton.textContent = "Spinning...";
+
+  // Use GSAP to animate the scroll
+  gsap.to(slotTrack, {
+    x: targetPosition,
+    duration: 3,
+    ease: "power2.out",
+    onComplete: () => {
+      spinButton.disabled = false;
+      spinButton.textContent = "Spin";
+      alert(`You won: ${winningItem}`);
+      addToInventory(winningItem, getRarityFromItem(winningItem));
+    },
   });
 }
 
@@ -188,9 +247,30 @@ function populateRarities() {
   rarities.forEach((rarity) => {
     const rarityDiv = document.createElement("div");
     rarityDiv.className = `rarity-item ${rarity}`;
-    rarityDiv.innerHTML = `<strong>${
-      rarity.charAt(0).toUpperCase() + rarity.slice(1)
-    }</strong><br>Items: ${items[rarity].length}`;
+    const title = document.createElement("strong");
+    title.textContent = rarity.charAt(0).toUpperCase() + rarity.slice(1);
+    rarityDiv.appendChild(title);
+
+    const count = document.createElement("div");
+    count.textContent = `Items: ${items[rarity].length}`;
+    rarityDiv.appendChild(count);
+
+    const list = document.createElement("ul");
+    items[rarity].forEach((item) => {
+      const li = document.createElement("li");
+
+      const img = document.createElement("img");
+      img.src = `../img/${itemImages[item]}`;
+      img.alt = item;
+
+      const text = document.createElement("div");
+      text.textContent = item;
+
+      li.appendChild(img);
+      li.appendChild(text);
+      list.appendChild(li);
+    });
+    rarityDiv.appendChild(list);
     raritiesList.appendChild(rarityDiv);
   });
 }

@@ -13,6 +13,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
     />
     <link rel="stylesheet" href="../css/login.css" />
+    <!-- Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body>
     <div class="container" id="container">
@@ -21,10 +23,23 @@
         <form id="signup-form">
           <h1>Criar Conta</h1>
           <div class="social-icons">
-            <a href="#" class="icon"><i class="ri-google-fill"></i></a>
-            <a href="#" class="icon"><i class="ri-microsoft-fill"></i></a>
-            <a href="#" class="icon"><i class="ri-apple-fill"></i></a>
-            <a href="#" class="icon"><i class="ri-phone-fill"></i></a>
+            <div
+              id="g_id_onload"
+              data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+              data-context="signup"
+              data-ux_mode="popup"
+              data-callback="handleCredentialResponse"
+              data-auto_prompt="false"
+            ></div>
+            <div
+              class="g_id_signin"
+              data-type="standard"
+              data-shape="rectangular"
+              data-theme="outline"
+              data-text="signup_with"
+              data-size="large"
+              data-logo_alignment="left"
+            ></div>
           </div>
           <span>ou usa o teu email para o registo</span>
           <input type="text" id="signup-name" placeholder="Nome" required />
@@ -44,10 +59,23 @@
         <form id="signin-form">
           <h1>Iniciar Sessão</h1>
           <div class="social-icons">
-            <a href="#" class="icon"><i class="ri-google-fill"></i></a>
-            <a href="#" class="icon"><i class="ri-microsoft-fill"></i></a>
-            <a href="#" class="icon"><i class="ri-apple-fill"></i></a>
-            <a href="#" class="icon"><i class="ri-phone-fill"></i></a>
+            <div
+              id="g_id_onload_signin"
+              data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+              data-context="signin"
+              data-ux_mode="popup"
+              data-callback="handleCredentialResponse"
+              data-auto_prompt="false"
+            ></div>
+            <div
+              class="g_id_signin"
+              data-type="standard"
+              data-shape="rectangular"
+              data-theme="outline"
+              data-text="signin_with"
+              data-size="large"
+              data-logo_alignment="left"
+            ></div>
           </div>
           <span>ou usa a palavra-passe da tua conta</span>
           <input type="email" id="signin-email" placeholder="Email" required />
@@ -89,5 +117,6 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/script.js"></script>
+    <script src="../js/google-auth.js"></script>
   </body>
 </html>

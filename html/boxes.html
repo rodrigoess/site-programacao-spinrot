@@ -53,7 +53,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="boxes.html"
+              <a class="nav-link active" href="boxes.html"
                 ><i class="ri-box-1-fill"></i><span>Caixas</span></a
               >
             </li>
@@ -75,6 +75,9 @@
           </ul>
 
           <div class="d-flex align-items-center">
+            <div id="coin-display" class="me-3 text-white">
+              <i class="ri-coin-fill"></i> <span id="coin-amount">0</span>
+            </div>
             <button
               class="btn btn-warning me-2"
               onclick="window.location.href='login.html'"
@@ -92,7 +95,7 @@
               </a>
               <div class="settings-panel" id="settingsPanel">
                 <div class="settings-section">
-                  <h6 id="lang-label">Idioma</h6>
+                  <h6><span>Idioma</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -109,7 +112,7 @@
                   </div>
                 </div>
                 <div class="settings-section">
-                  <h6 id="mode-label">Modo</h6>
+                  <h6><span>Modo</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -121,23 +124,6 @@
                     <div class="dropdown-options" id="mode-options">
                       <div class="option" data-mode="dark">Escuro</div>
                       <div class="option" data-mode="light">Claro</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="settings-section">
-                  <h6 id="currency-label">Moeda</h6>
-                  <div class="dropdown-container">
-                    <button
-                      type="button"
-                      class="current-selection"
-                      id="current-currency"
-                    >
-                      EUR
-                    </button>
-                    <div class="dropdown-options" id="currency-options">
-                      <div class="option" data-currency="EUR">EUR</div>
-                      <div class="option" data-currency="USD">USD</div>
-                      <div class="option" data-currency="GBP">GBP</div>
                     </div>
                   </div>
                 </div>

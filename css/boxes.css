@@ -13,26 +13,11 @@
   font-size: 2.5rem;
 }
 
-/* Responsive title */
-@media (max-width: 768px) {
-  .boxes-container h1 {
-    font-size: 2rem;
-  }
-}
-
 .boxes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   margin-bottom: 2rem;
-}
-
-/* Responsive boxes grid */
-@media (max-width: 768px) {
-  .boxes-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-  }
 }
 
 .box {
@@ -64,6 +49,40 @@
 .box p {
   color: rgb(163, 163, 163);
   font-size: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .boxes-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .box {
+    padding: 1rem;
+  }
+
+  .box-image {
+    font-size: 3rem;
+  }
+
+  .box h3 {
+    font-size: 1.2rem;
+  }
+
+  .box p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .boxes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .boxes-container h1 {
+    font-size: 2rem;
+  }
 }
 
 /* Spinning animation */

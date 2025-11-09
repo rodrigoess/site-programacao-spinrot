@@ -69,29 +69,25 @@ function openGift() {
   }
 }
 
-// Open boxes (requires 10 coins)
+// Open boxes (requires 5 coins)
 function openBoxes() {
-  if (balance >= 10) {
-    balance -= 10;
-    saveBalance();
-    updateBalanceDisplay();
+  if (balance >= 5) {
+    spendCoins(5);
     // Redirect to boxes page
     window.location.href = "boxes.html";
   } else {
-    alert("Você precisa de 10 moedas para abrir caixas!");
+    alert("Você precisa de 5 moedas para abrir caixas!");
   }
 }
 
-// Spin roulette (requires 2 coins)
+// Spin roulette (requires 10 coins)
 function spinRoulette() {
-  if (balance >= 2) {
-    balance -= 2;
-    saveBalance();
-    updateBalanceDisplay();
+  if (balance >= 10) {
+    spendCoins(10);
     // Redirect to roulette page
     window.location.href = "roulette.html";
   } else {
-    alert("Você precisa de 2 moedas para girar a roleta!");
+    alert("Você precisa de 10 moedas para girar a roleta!");
   }
 }
 
@@ -115,9 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const spinRouletteBtn = document.getElementById("spin-roulette-btn");
 
   if (openBoxesBtn) {
-    openBoxesBtn.disabled = balance < 10;
+    openBoxesBtn.disabled = balance < 5;
   }
   if (spinRouletteBtn) {
-    spinRouletteBtn.disabled = balance < 2;
+    spinRouletteBtn.disabled = balance < 10;
   }
 });

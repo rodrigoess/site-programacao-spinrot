@@ -1,14 +1,68 @@
 // market.js - Market functionality
 
+// Define brainrot items with rarity pools
+const marketItems = {
+  rare: [
+    "Brr Brr Patapim",
+    "Cappuccino Assassino",
+    "Ballerina Cappuccina",
+    "Blueberrinni Octopussini",
+    "Apollino Cappuccino",
+    "Canyelloni Dragoni",
+    "Capybarelli Bananalelli",
+    "Carloooooo",
+  ],
+  epic: [
+    "Trippi Troppi",
+    "Frigo Camelo",
+    "La Vaca Saturno Saturnita",
+    "Girafa Celestre",
+    "Bobrito Bandito",
+  ],
+  legendary: ["Lirilì Larilà", "Chimpanzini Bananini", "Bombombini Gusini"],
+  mythical: ["Tung Tung Tung Sahur", "Boneca Ambalabu"],
+  secret: ["Tralalero Tralala", "Bombardiro Crocodilo"],
+};
+
+// Market prices based on rarity
+const marketPrices = {
+  rare: 200,
+  epic: 400,
+  legendary: 600,
+  mythical: 800,
+  secret: 1000,
+};
+
 // Market listings (simulated - in a real app, this would come from a server)
 let marketListings = JSON.parse(localStorage.getItem("spinrot_market")) || [];
 
 // Initialize market on page load
 document.addEventListener("DOMContentLoaded", () => {
+  initializeMarketListings();
   displayMarketListings();
   displaySellInventory();
   updateBalanceDisplay();
 });
+
+// Initialize market with all brainrots for sale
+function initializeMarketListings() {
+  // Clear existing listings
+  marketListings = [];
+
+  // Add all items to market
+  Object.keys(marketItems).forEach((rarity) => {
+    marketItems[rarity].forEach((item) => {
+      marketListings.push({
+        item: { item: item, rarity: rarity },
+        price: marketPrices[rarity],
+        seller: "Sistema",
+      });
+    });
+  });
+
+  // Save to localStorage
+  saveMarketListings();
+}
 
 // Display market listings
 function displayMarketListings() {
@@ -31,10 +85,13 @@ function displayMarketListings() {
     const listingCard = document.createElement("div");
     listingCard.className = "market-item-card";
 
+    const imageSrc = itemImages[listing.item.item]
+      ? `../img/${itemImages[listing.item.item]}`
+      : `https://via.placeholder.com/100x100?text=${encodeURIComponent(
+          listing.item.item
+        )}`;
     listingCard.innerHTML = `
-      <img src="https://via.placeholder.com/100x100?text=${encodeURIComponent(
-        listing.item.item
-      )}" alt="${listing.item.item}" />
+      <img src="${imageSrc}" alt="${listing.item.item}" />
       <div class="item-info">
         <h5>${listing.item.item}</h5>
         <p class="rarity-label ${listing.item.rarity}">${
@@ -102,10 +159,13 @@ function displaySellInventory() {
 
         const date = new Date(item.date).toLocaleDateString("pt-PT");
         const suggestedPrice = getSuggestedPrice(item.rarity);
+        const imageSrc = itemImages[item.item]
+          ? `../img/${itemImages[item.item]}`
+          : `https://via.placeholder.com/100x100?text=${encodeURIComponent(
+              item.item
+            )}`;
         itemCard.innerHTML = `
-          <img src="https://via.placeholder.com/100x100?text=${encodeURIComponent(
-            item.item
-          )}" alt="${item.item}" />
+          <img src="${imageSrc}" alt="${item.item}" />
           <div class="item-info">
             <h5>${item.item}</h5>
             <p class="rarity-label ${rarity}">${
@@ -159,13 +219,10 @@ function showPurchaseModal(listing, index) {
     if (spendCoins(listing.price)) {
       // Add item to inventory
       addToInventory(listing.item.item, listing.item.rarity);
-      // Remove from market
-      marketListings.splice(index, 1);
-      saveMarketListings();
-      displayMarketListings();
-      alert("Compra realizada com sucesso!");
+      // Don't remove from market - keep all items available for purchase
+      showNotification("Compra realizada com sucesso!");
     } else {
-      alert("Moedas insuficientes!");
+      showNotification("Moedas insuficientes!", "error");
     }
     document.getElementById("purchase-modal").style.display = "none";
   };
@@ -196,9 +253,9 @@ function showSellModal(item, index) {
       removeFromInventory(index);
       displaySellInventory();
       displayMarketListings();
-      alert("Item colocado à venda!");
+      showNotification("Item colocado à venda!");
     } else {
-      alert("Preço inválido!");
+      showNotification("Preço inválido!", "error");
     }
     document.getElementById("sell-modal").style.display = "none";
   };
@@ -254,3 +311,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// Notification function
+function showNotification(message, type = "success") {
+  const notification = document.getElementById("notification");
+  const notificationMessage = document.getElementById("notification-message");
+  const notificationContent = document.querySelector(".notification-content");
+
+  notificationMessage.textContent = message;
+
+  if (type === "error") {
+    notificationContent.style.backgroundColor = "#f44336";
+    notificationContent.style.borderColor = "#d32f2f";
+  } else {
+    notificationContent.style.backgroundColor = "#4CAF50";
+    notificationContent.style.borderColor = "#45a049";
+  }
+
+  notification.style.display = "block";
+
+  // Hide notification after 3 seconds
+  setTimeout(() => {
+    notification.style.display = "none";
+  }, 3000);
+}

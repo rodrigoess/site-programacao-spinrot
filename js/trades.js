@@ -51,10 +51,13 @@ function displayTradeInventory() {
         itemCard.setAttribute("data-index", inventory.indexOf(item));
 
         const date = new Date(item.date).toLocaleDateString("pt-PT");
+        const imageSrc = itemImages[item.item]
+          ? `../img/${itemImages[item.item]}`
+          : `https://via.placeholder.com/100x100?text=${encodeURIComponent(
+              item.item
+            )}`;
         itemCard.innerHTML = `
-          <img src="https://via.placeholder.com/100x100?text=${encodeURIComponent(
-            item.item
-          )}" alt="${item.item}" />
+          <img src="${imageSrc}" alt="${item.item}" />
           <div class="item-info">
             <h5>${item.item}</h5>
             <p class="rarity-label ${rarity}">${
@@ -101,10 +104,13 @@ function displayTradeInventory() {
   availableItems.forEach((item, index) => {
     const itemCard = document.createElement("div");
     itemCard.className = "trade-item-card available-trade-card";
+    const imageSrc = itemImages[item.item]
+      ? `../img/${itemImages[item.item]}`
+      : `https://via.placeholder.com/100x100?text=${encodeURIComponent(
+          item.item
+        )}`;
     itemCard.innerHTML = `
-      <img src="https://via.placeholder.com/100x100?text=${encodeURIComponent(
-        item.item
-      )}" alt="${item.item}" />
+      <img src="${imageSrc}" alt="${item.item}" />
       <div class="item-info">
         <h5>${item.item}</h5>
         <p class="rarity-label ${item.rarity}">${
