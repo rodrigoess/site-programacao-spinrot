@@ -43,32 +43,38 @@
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a class="nav-link active" href="gratis.html"
-                ><i class="ri-gift-2-fill"></i><span>Grátis</span></a
+                ><i class="ri-gift-2-fill"></i
+                ><span data-i18n="gratis">Grátis</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="roulette.html"
-                ><i class="ri-vip-diamond-fill"></i><span>Roletas</span></a
+                ><i class="ri-vip-diamond-fill"></i
+                ><span data-i18n="roletas">Roletas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="boxes.html"
-                ><i class="ri-box-1-fill"></i><span>Caixas</span></a
+                ><i class="ri-box-1-fill"></i
+                ><span data-i18n="caixas">Caixas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="trades.html"
-                ><i class="ri-arrow-left-right-line"></i><span>Trocas</span></a
+                ><i class="ri-arrow-left-right-line"></i
+                ><span data-i18n="trocas">Trocas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="market.html"
-                ><i class="ri-store-fill"></i><span>Mercado</span></a
+                ><i class="ri-store-fill"></i
+                ><span data-i18n="mercado">Mercado</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="inventory.html"
-                ><i class="ri-home-smile-fill"></i><span>Inventário</span></a
+                ><i class="ri-home-smile-fill"></i
+                ><span data-i18n="inventario">Inventário</span></a
               >
             </li>
           </ul>
@@ -82,7 +88,8 @@
                 class="btn btn-warning me-2"
                 onclick="window.location.href='login.html'"
               >
-                <i class="ri-user-3-fill"></i><span>Inicie Sessão</span>
+                <i class="ri-user-3-fill"></i
+                ><span data-i18n="iniciarSessao">Inicie Sessão</span>
               </button>
             </div>
             <div id="user-section" style="display: none">
@@ -105,7 +112,7 @@
               </a>
               <div class="settings-panel" id="settingsPanel">
                 <div class="settings-section">
-                  <h6><span>Idioma</span></h6>
+                  <h6><span data-i18n="idioma">Idioma</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -115,14 +122,20 @@
                       Português
                     </button>
                     <div class="dropdown-options" id="lang-options">
-                      <div class="option" data-lang="pt">Português</div>
-                      <div class="option" data-lang="es">Español</div>
-                      <div class="option" data-lang="en">English</div>
+                      <div class="option" data-lang="pt" data-i18n="portugues">
+                        Português
+                      </div>
+                      <div class="option" data-lang="es" data-i18n="espanhol">
+                        Español
+                      </div>
+                      <div class="option" data-lang="en" data-i18n="ingles">
+                        English
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="settings-section">
-                  <h6><span>Modo</span></h6>
+                  <h6><span data-i18n="modo">Modo</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -132,8 +145,12 @@
                       Escuro
                     </button>
                     <div class="dropdown-options" id="mode-options">
-                      <div class="option" data-mode="dark">Escuro</div>
-                      <div class="option" data-mode="light">Claro</div>
+                      <div class="option" data-mode="dark" data-i18n="escuro">
+                        Escuro
+                      </div>
+                      <div class="option" data-mode="light" data-i18n="claro">
+                        Claro
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -157,8 +174,8 @@
   </header>
   <body>
     <div class="hero-section">
-      <h1>Grátis - Ganha Moedas!</h1>
-      <p>
+      <h1 data-i18n="gratis">Grátis - Ganha Moedas!</h1>
+      <p data-i18n="gratisDesc">
         Abre um presente a cada 10 minutos e ganha moedas para usar nas roletas
         e caixas!
       </p>
@@ -169,18 +186,19 @@
         <div class="col-md-8">
           <div class="card text-center">
             <div class="card-body">
-              <h2 class="card-title">Presente Diário</h2>
+              <h2 class="card-title" data-i18n="dailyGift">Presente Diário</h2>
               <div id="gift-box" class="gift-box">
                 <i class="ri-gift-2-fill gift-icon"></i>
               </div>
               <div id="timer-display" class="timer-display">
-                <p>Próximo presente em:</p>
+                <p data-i18n="nextGiftIn">Próximo presente em:</p>
                 <div class="timer" id="timer">10:00</div>
               </div>
               <button
                 id="open-gift-btn"
                 class="btn btn-success btn-lg mt-3"
                 onclick="openGift()"
+                data-i18n="openGift"
               >
                 Abrir Presente
               </button>
@@ -189,10 +207,11 @@
                 class="reward-display mt-3"
                 style="display: none"
               >
-                <h4>Parabéns! Ganhaste:</h4>
+                <h4 data-i18n="congratulations">Parabéns! Ganhaste:</h4>
                 <div class="reward-coins">
                   <i class="ri-coin-fill"></i>
-                  <span id="reward-amount">0</span> Moedas
+                  <span id="reward-amount">0</span>
+                  <span data-i18n="moedas">Moedas</span>
                 </div>
               </div>
             </div>
@@ -204,8 +223,8 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-body text-center">
-              <h3 class="card-title">Usar Moedas</h3>
-              <p class="card-text">
+              <h3 class="card-title" data-i18n="useCoins">Usar Moedas</h3>
+              <p class="card-text" data-i18n="useCoinsDesc">
                 Usa as tuas moedas para abrir caixas ou girar roletas!
               </p>
               <div class="d-flex justify-content-around">
@@ -213,6 +232,7 @@
                   class="btn btn-primary"
                   onclick="openBoxes()"
                   id="open-boxes-btn"
+                  data-i18n="openBoxes"
                 >
                   <i class="ri-box-1-fill"></i> Abrir Caixas (5 Moedas)
                 </button>
@@ -220,6 +240,7 @@
                   class="btn btn-warning"
                   onclick="spinRoulette()"
                   id="spin-roulette-btn"
+                  data-i18n="spinRoulette"
                 >
                   <i class="ri-vip-diamond-fill"></i> Girar Roleta (10 Moedas)
                 </button>
@@ -233,22 +254,26 @@
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
-        <h4>SpinRot</h4>
-        <p>Ganhe itens incríveis e divirta-se com nossas roletas e caixas!</p>
+        <h4 data-i18n="spinrot">SpinRot</h4>
+        <p data-i18n="ganheItens">
+          Ganhe itens incríveis e divirta-se com nossas roletas e caixas!
+        </p>
       </div>
       <div class="footer-section">
-        <h4>Links Rápidos</h4>
+        <h4 data-i18n="linksRapidos">Links Rápidos</h4>
         <ul>
-          <li><a href="roulette.html">Roletas</a></li>
-          <li><a href="boxes.html">Caixas</a></li>
-          <li><a href="gratis.html">Grátis</a></li>
-          <li><a href="trades.html">Trocas</a></li>
-          <li><a href="market.html">Mercado</a></li>
-          <li><a href="inventory.html">Inventário</a></li>
+          <li><a href="roulette.html" data-i18n="roletas">Roletas</a></li>
+          <li><a href="boxes.html" data-i18n="caixas">Caixas</a></li>
+          <li><a href="gratis.html" data-i18n="gratis">Grátis</a></li>
+          <li><a href="trades.html" data-i18n="trocas">Trocas</a></li>
+          <li><a href="market.html" data-i18n="mercado">Mercado</a></li>
+          <li>
+            <a href="inventory.html" data-i18n="inventario">Inventário</a>
+          </li>
         </ul>
       </div>
       <div class="footer-section">
-        <h4>Redes Sociais</h4>
+        <h4 data-i18n="redesSociais">Redes Sociais</h4>
         <div class="social-links">
           <a href="#" class="social-link"><i class="ri-facebook-fill"></i></a>
           <a href="#" class="social-link"><i class="ri-twitter-fill"></i></a>
@@ -258,13 +283,15 @@
         </div>
       </div>
       <div class="footer-section">
-        <h4>Contato</h4>
-        <p>Email: suporte@spinrot.com</p>
-        <p>Telefone: +351 123 456 789</p>
+        <h4 data-i18n="contato">Contato</h4>
+        <p data-i18n="email">Email: suporte@spinrot.com</p>
+        <p data-i18n="telefone">Telefone: +351 123 456 789</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 SpinRot. Todos os direitos reservados.</p>
+      <p data-i18n="direitosReservados">
+        &copy; 2025 SpinRot. Todos os direitos reservados.
+      </p>
     </div>
   </footer>
   <!-- Bootstrap JS -->

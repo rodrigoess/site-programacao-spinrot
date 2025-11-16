@@ -214,7 +214,9 @@ function spinSlot() {
   }
 
   const numItems = selectedItems.length;
-  const itemWidth = 150; // Width of each slot item
+  const itemWidth = parseInt(
+    getComputedStyle(document.querySelector(".slot-item")).width
+  ); // Dynamic width based on CSS
   const randomIndex = selectedItems.indexOf(winningItem);
 
   // Calculate the distance to scroll to center the winning item

@@ -44,32 +44,38 @@
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a class="nav-link" href="gratis.html"
-                ><i class="ri-gift-2-fill"></i><span>Grátis</span></a
+                ><i class="ri-gift-2-fill"></i
+                ><span data-i18n="gratis">Grátis</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="roulette.html"
-                ><i class="ri-vip-diamond-fill"></i><span>Roletas</span></a
+                ><i class="ri-vip-diamond-fill"></i
+                ><span data-i18n="roletas">Roletas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="boxes.html"
-                ><i class="ri-box-1-fill"></i><span>Caixas</span></a
+                ><i class="ri-box-1-fill"></i
+                ><span data-i18n="caixas">Caixas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="trades.html"
-                ><i class="ri-arrow-left-right-line"></i><span>Trocas</span></a
+                ><i class="ri-arrow-left-right-line"></i
+                ><span data-i18n="trocas">Trocas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="market.html"
-                ><i class="ri-store-fill"></i><span>Mercado</span></a
+                ><i class="ri-store-fill"></i
+                ><span data-i18n="mercado">Mercado</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="inventory.html"
-                ><i class="ri-home-smile-fill"></i><span>Inventário</span></a
+                ><i class="ri-home-smile-fill"></i
+                ><span data-i18n="inventario">Inventário</span></a
               >
             </li>
           </ul>
@@ -83,7 +89,8 @@
                 class="btn btn-warning me-2"
                 onclick="window.location.href='login.html'"
               >
-                <i class="ri-user-3-fill"></i><span>Inicie Sessão</span>
+                <i class="ri-user-3-fill"></i
+                ><span data-i18n="iniciarSessao">Inicie Sessão</span>
               </button>
             </div>
             <div id="user-section" style="display: none">
@@ -106,7 +113,7 @@
               </a>
               <div class="settings-panel" id="settingsPanel">
                 <div class="settings-section">
-                  <h6><span>Idioma</span></h6>
+                  <h6><span data-i18n="idioma">Idioma</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -116,14 +123,20 @@
                       Português
                     </button>
                     <div class="dropdown-options" id="lang-options">
-                      <div class="option" data-lang="pt">Português</div>
-                      <div class="option" data-lang="es">Español</div>
-                      <div class="option" data-lang="en">English</div>
+                      <div class="option" data-lang="pt" data-i18n="portugues">
+                        Português
+                      </div>
+                      <div class="option" data-lang="es" data-i18n="espanhol">
+                        Español
+                      </div>
+                      <div class="option" data-lang="en" data-i18n="ingles">
+                        English
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="settings-section">
-                  <h6><span>Modo</span></h6>
+                  <h6><span data-i18n="modo">Modo</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -133,8 +146,12 @@
                       Escuro
                     </button>
                     <div class="dropdown-options" id="mode-options">
-                      <div class="option" data-mode="dark">Escuro</div>
-                      <div class="option" data-mode="light">Claro</div>
+                      <div class="option" data-mode="dark" data-i18n="escuro">
+                        Escuro
+                      </div>
+                      <div class="option" data-mode="light" data-i18n="claro">
+                        Claro
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -158,48 +175,48 @@
   </header>
   <body>
     <div class="boxes-container">
-      <h1>Caixas</h1>
+      <h1 data-i18n="caixas">Caixas</h1>
       <div class="boxes-grid">
         <div class="box" id="rare-box">
           <div class="box-image">
             <i class="ri-box-1-fill"></i>
           </div>
-          <h3>Rare (10)</h3>
-          <p>Abra para obter itens raros!</p>
+          <h3 data-i18n="rareBox">Rare (10)</h3>
+          <p data-i18n="rareBoxDesc">Abra para obter itens raros!</p>
         </div>
         <div class="box" id="epic-box">
           <div class="box-image">
             <i class="ri-box-1-fill"></i>
           </div>
-          <h3>Epic (50)</h3>
-          <p>Abra para obter itens épicos!</p>
+          <h3 data-i18n="epicBox">Epic (50)</h3>
+          <p data-i18n="epicBoxDesc">Abra para obter itens épicos!</p>
         </div>
         <div class="box" id="legendary-box">
           <div class="box-image">
             <i class="ri-box-1-fill"></i>
           </div>
-          <h3>Legendary (200)</h3>
-          <p>Abra para obter itens lendários!</p>
+          <h3 data-i18n="legendaryBox">Legendary (200)</h3>
+          <p data-i18n="legendaryBoxDesc">Abra para obter itens lendários!</p>
         </div>
         <div class="box" id="mythical-box">
           <div class="box-image">
             <i class="ri-box-1-fill"></i>
           </div>
-          <h3>Mythical (500)</h3>
-          <p>Abra para obter itens míticos!</p>
+          <h3 data-i18n="mythicalBox">Mythical (500)</h3>
+          <p data-i18n="mythicalBoxDesc">Abra para obter itens míticos!</p>
         </div>
         <div class="box" id="secret-box">
           <div class="box-image">
             <i class="ri-box-1-fill"></i>
           </div>
-          <h3>Secret (1000)</h3>
-          <p>Abra para obter itens secretos!</p>
+          <h3 data-i18n="secretBox">Secret (1000)</h3>
+          <p data-i18n="secretBoxDesc">Abra para obter itens secretos!</p>
         </div>
       </div>
       <div id="result-modal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <h2>Ganhaste:</h2>
+          <h2 data-i18n="youWon">Ganhaste:</h2>
           <p id="item-result"></p>
         </div>
       </div>

@@ -331,8 +331,8 @@ const translations = {
     modo: "Modo",
     moeda: "Moeda",
     portugues: "Português",
-    espanhol: "Español",
-    english: "English",
+    espanhol: "Espanhol",
+    ingles: "Inglês",
     escuro: "Escuro",
     claro: "Claro",
     bemVindo: "Bem-vindo ao SpinRot - Ganha Rots Incríveis!",
@@ -361,6 +361,74 @@ const translations = {
     preco: "Preço",
     moedas: "moedas",
     girar: "Girar",
+    rouletteTitle: "Roulette - ",
+    spinCostText: "Rodar a roleta custa 100 moedas.",
+    spinButton: "Girar",
+    openAnother: "Abrir Outra",
+    rarities: "Raridades",
+    dropChances: "Probabilidades de Queda (Modo Todos)",
+    rare: "Raro",
+    epic: "Épico",
+    legendary: "Lendário",
+    mythical: "Mítico",
+    secret: "Secreto",
+    caixas: "Caixas",
+    rareBox: "Rare (10)",
+    rareBoxDesc: "Abra para obter itens raros!",
+    epicBox: "Epic (50)",
+    epicBoxDesc: "Abra para obter itens épicos!",
+    legendaryBox: "Legendary (200)",
+    legendaryBoxDesc: "Abra para obter itens lendários!",
+    mythicalBox: "Mythical (500)",
+    mythicalBoxDesc: "Abra para obter itens míticos!",
+    secretBox: "Secret (1000)",
+    secretBoxDesc: "Abra para obter itens secretos!",
+    youWon: "Ganhaste:",
+    // Novas traduções para trades
+    inventario: "Inventário",
+    proposeTrade: "Propor Troca",
+    selectItemsToTrade:
+      "Seleciona itens do teu inventário para propor uma troca.",
+    proposeTradeBtn: "Propor Troca",
+    tradeProposal: "Proposta de Troca",
+    accept: "Aceitar",
+    reject: "Rejeitar",
+    noItemsToTrade: "Não tens itens para trocar.",
+    playToGetItems: "Joga nas roletas ou abre caixas para ganhar itens!",
+    // Novas traduções para market
+    brainrotsForSale: "Brainrots à Venda",
+    noItemsForSale: "Não há itens à venda no momento.",
+    sellYourRots: "Vende os Teus Rots",
+    selectItemsToSell:
+      "Seleciona itens do teu inventário para vender no mercado.",
+    noItemsToSell: "Não tens itens para vender.",
+    confirmPurchase: "Confirmar Compra",
+    confirm: "Confirmar",
+    cancel: "Cancelar",
+    setSellPrice: "Definir Preço de Venda",
+    price: "Preço (Moedas):",
+    putForSale: "Colocar à Venda",
+    yourCart: "O Teu Carrinho de Compras",
+    cartEmpty: "O carrinho está vazio.",
+    total: "Total:",
+    checkout: "Finalizar Compra",
+    clearCart: "Limpar Carrinho",
+    // Novas traduções para inventory
+    yourRots: "Os Teus Rots",
+    all: "Todos",
+    favorites: "Favoritos",
+    showFavorites: "Mostrar Favoritos",
+    noRotsYet: "Ainda não tens nenhum rot no inventário.",
+    playToGetRots: "Joga nas roletas ou abre caixas para ganhar rots!",
+    // Novas traduções para gratis
+    dailyGift: "Presente Diário",
+    nextGiftIn: "Próximo presente em:",
+    openGift: "Abrir Presente",
+    congratulations: "Parabéns! Ganhaste:",
+    useCoins: "Usar Moedas",
+    useCoinsDesc: "Usa as tuas moedas para abrir caixas ou girar roletas!",
+    openBoxes: "Abrir Caixas (5 Moedas)",
+    spinRoulette: "Girar Roleta (10 Moedas)",
   },
   es: {
     gratis: "Gratis",
@@ -404,6 +472,17 @@ const translations = {
     preco: "Precio",
     moedas: "monedas",
     girar: "Girar",
+    rouletteTitle: "Ruleta - ",
+    spinCostText: "Girar la ruleta cuesta 100 monedas.",
+    spinButton: "Girar",
+    openAnother: "Abrir Otra",
+    rarities: "Rarezas",
+    dropChances: "Probabilidades de Caída (Modo Todos)",
+    rare: "Raro",
+    epic: "Épico",
+    legendary: "Legendario",
+    mythical: "Mítico",
+    secret: "Secreto",
   },
   en: {
     gratis: "Free",
@@ -446,6 +525,17 @@ const translations = {
     preco: "Price",
     moedas: "coins",
     girar: "Spin",
+    rouletteTitle: "Roulette - ",
+    spinCostText: "Spinning the roulette costs 100 coins.",
+    spinButton: "Spin",
+    openAnother: "Open Another",
+    rarities: "Rarities",
+    dropChances: "Drop Chances (All Mode)",
+    rare: "Rare",
+    epic: "Epic",
+    legendary: "Legendary",
+    mythical: "Mythical",
+    secret: "Secret",
   },
 };
 
@@ -457,6 +547,16 @@ function getCurrentLanguage() {
 // Função para definir o idioma
 function setCurrentLanguage(lang) {
   localStorage.setItem("spinrot_language", lang);
+}
+
+// Função para obter o modo atual (padrão: 'dark')
+function getCurrentMode() {
+  return localStorage.getItem("spinrot_mode") || "dark";
+}
+
+// Função para definir o modo
+function setCurrentMode(mode) {
+  localStorage.setItem("spinrot_mode", mode);
 }
 
 // Função de tradução
@@ -484,9 +584,98 @@ function toggleSettingsPanel() {
   }
 }
 
-// Aplicar traduções no carregamento da página
+// Função para aplicar o modo (dark/light)
+function applyMode() {
+  const mode = getCurrentMode();
+  const body = document.body;
+  if (mode === "light") {
+    body.classList.add("light-mode");
+  } else {
+    body.classList.remove("light-mode");
+  }
+}
+
+// Função para atualizar a exibição do idioma atual
+function updateLanguageDisplay() {
+  const currentLangElement = document.getElementById("current-lang");
+  if (currentLangElement) {
+    const lang = getCurrentLanguage();
+    const langNames = {
+      pt: "Português",
+      es: "Español",
+      en: "English",
+    };
+    currentLangElement.textContent = langNames[lang] || "Português";
+  }
+}
+
+// Função para atualizar a exibição do modo atual
+function updateModeDisplay() {
+  const currentModeElement = document.getElementById("current-mode");
+  if (currentModeElement) {
+    const mode = getCurrentMode();
+    const modeNames = {
+      dark: "Escuro",
+      light: "Claro",
+    };
+    currentModeElement.textContent = modeNames[mode] || "Escuro";
+  }
+}
+
+// Função para alternar dropdowns
+function toggleDropdown(dropdownId) {
+  const dropdown = document.getElementById(dropdownId);
+  if (dropdown) {
+    dropdown.classList.toggle("active");
+  }
+}
+
+// Event listeners para configurações
 document.addEventListener("DOMContentLoaded", () => {
   applyTranslations();
+  applyMode();
   updateUserDisplay();
   updateBalanceDisplay();
+  updateLanguageDisplay();
+  updateModeDisplay();
+
+  // Event listeners para dropdowns
+  const currentLang = document.getElementById("current-lang");
+  const currentMode = document.getElementById("current-mode");
+
+  if (currentLang) {
+    currentLang.addEventListener("click", () => {
+      toggleDropdown("lang-options");
+    });
+  }
+
+  if (currentMode) {
+    currentMode.addEventListener("click", () => {
+      toggleDropdown("mode-options");
+    });
+  }
+
+  // Event listeners para opções de idioma
+  const langOptions = document.querySelectorAll("#lang-options .option");
+  langOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      const lang = option.getAttribute("data-lang");
+      setCurrentLanguage(lang);
+      applyTranslations();
+      updateLanguageDisplay();
+      toggleDropdown("lang-options");
+    });
+  });
+
+  // Event listeners para opções de modo
+  const modeOptions = document.querySelectorAll("#mode-options .option");
+  modeOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      const mode = option.getAttribute("data-mode");
+      setCurrentMode(mode);
+      applyMode();
+      updateModeDisplay();
+      toggleDropdown("mode-options");
+    });
+  });
 });

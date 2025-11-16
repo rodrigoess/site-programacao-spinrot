@@ -43,32 +43,38 @@
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a class="nav-link" href="gratis.html"
-                ><i class="ri-gift-2-fill"></i><span>Grátis</span></a
+                ><i class="ri-gift-2-fill"></i
+                ><span data-i18n="gratis">Grátis</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="roulette.html"
-                ><i class="ri-vip-diamond-fill"></i><span>Roletas</span></a
+                ><i class="ri-vip-diamond-fill"></i
+                ><span data-i18n="roletas">Roletas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="boxes.html"
-                ><i class="ri-box-1-fill"></i><span>Caixas</span></a
+                ><i class="ri-box-1-fill"></i
+                ><span data-i18n="caixas">Caixas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="trades.html"
-                ><i class="ri-arrow-left-right-line"></i><span>Trocas</span></a
+                ><i class="ri-arrow-left-right-line"></i
+                ><span data-i18n="trocas">Trocas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="market.html"
-                ><i class="ri-store-fill"></i><span>Mercado</span></a
+                ><i class="ri-store-fill"></i
+                ><span data-i18n="mercado">Mercado</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="inventory.html"
-                ><i class="ri-home-smile-fill"></i><span>Inventário</span></a
+                ><i class="ri-home-smile-fill"></i
+                ><span data-i18n="inventario">Inventário</span></a
               >
             </li>
           </ul>
@@ -82,7 +88,8 @@
                 class="btn btn-warning me-2"
                 onclick="window.location.href='login.html'"
               >
-                <i class="ri-user-3-fill"></i><span>Inicie Sessão</span>
+                <i class="ri-user-3-fill"></i
+                ><span data-i18n="iniciarSessao">Inicie Sessão</span>
               </button>
             </div>
             <div id="user-section" style="display: none">
@@ -105,7 +112,7 @@
               </a>
               <div class="settings-panel" id="settingsPanel">
                 <div class="settings-section">
-                  <h6><span>Idioma</span></h6>
+                  <h6><span data-i18n="idioma">Idioma</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -115,14 +122,20 @@
                       Português
                     </button>
                     <div class="dropdown-options" id="lang-options">
-                      <div class="option" data-lang="pt">Português</div>
-                      <div class="option" data-lang="es">Español</div>
-                      <div class="option" data-lang="en">English</div>
+                      <div class="option" data-lang="pt" data-i18n="portugues">
+                        Português
+                      </div>
+                      <div class="option" data-lang="es" data-i18n="espanhol">
+                        Español
+                      </div>
+                      <div class="option" data-lang="en" data-i18n="ingles">
+                        English
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="settings-section">
-                  <h6><span>Modo</span></h6>
+                  <h6><span data-i18n="modo">Modo</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -132,8 +145,12 @@
                       Escuro
                     </button>
                     <div class="dropdown-options" id="mode-options">
-                      <div class="option" data-mode="dark">Escuro</div>
-                      <div class="option" data-mode="light">Claro</div>
+                      <div class="option" data-mode="dark" data-i18n="escuro">
+                        Escuro
+                      </div>
+                      <div class="option" data-mode="light" data-i18n="claro">
+                        Claro
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -157,60 +174,82 @@
   </header>
   <body>
     <div class="hero-section">
-      <h1>Bem-vindo ao SpinRot - Ganha Rots Incríveis!</h1>
-      <p>Explora as nossas opções e ganha itens únicos!</p>
+      <h1 data-i18n="bemVindo">Bem-vindo ao SpinRot - Ganha Rots Incríveis!</h1>
+      <p data-i18n="exploraOpcoes">
+        Explora as nossas opções e ganha itens únicos!
+      </p>
     </div>
     <div class="promo-container">
       <div class="promo-card featured">
         <i class="ri-vip-diamond-fill promo-icon"></i>
-        <h3>Roletas</h3>
-        <p>Gira a roda e ganha rots raros e épicos!</p>
+        <h3 data-i18n="roletas">Roletas</h3>
+        <p data-i18n="roletasDesc">Gira a roda e ganha rots raros e épicos!</p>
         <button
           class="promo-btn"
           onclick="window.location.href='roulette.html'"
+          data-i18n="jogarAgora"
         >
           Jogar Agora
         </button>
       </div>
       <div class="promo-card">
         <i class="ri-box-1-fill promo-icon"></i>
-        <h3>Caixas</h3>
-        <p>Abre caixas e descobre itens lendários!</p>
-        <button class="promo-btn" onclick="window.location.href='boxes.html'">
+        <h3 data-i18n="caixas">Caixas</h3>
+        <p data-i18n="caixasDesc">Abre caixas e descobre itens lendários!</p>
+        <button
+          class="promo-btn"
+          onclick="window.location.href='boxes.html'"
+          data-i18n="abrirCaixas"
+        >
           Abrir Caixas
         </button>
       </div>
       <div class="promo-card">
         <i class="ri-gift-2-fill promo-icon"></i>
-        <h3>Grátis</h3>
-        <p>Joga gratuitamente e ganha sem gastar nada!</p>
-        <button class="promo-btn" onclick="window.location.href='gratis.html'">
+        <h3 data-i18n="gratis">Grátis</h3>
+        <p data-i18n="gratisDesc">
+          Joga gratuitamente e ganha sem gastar nada!
+        </p>
+        <button
+          class="promo-btn"
+          onclick="window.location.href='gratis.html'"
+          data-i18n="jogarGratis"
+        >
           Jogar Grátis
         </button>
       </div>
       <div class="promo-card">
         <i class="ri-arrow-left-right-line promo-icon"></i>
-        <h3>Trocas</h3>
-        <p>Troca os teus rots com outros jogadores!</p>
-        <button class="promo-btn" onclick="window.location.href='trades.html'">
+        <h3 data-i18n="trocas">Trocas</h3>
+        <p data-i18n="trocasDesc">Troca os teus rots com outros jogadores!</p>
+        <button
+          class="promo-btn"
+          onclick="window.location.href='trades.html'"
+          data-i18n="trocarAgora"
+        >
           Trocar Agora
         </button>
       </div>
       <div class="promo-card">
         <i class="ri-store-fill promo-icon"></i>
-        <h3>Mercado</h3>
-        <p>Compra e vende rots no mercado!</p>
-        <button class="promo-btn" onclick="window.location.href='market.html'">
+        <h3 data-i18n="mercado">Mercado</h3>
+        <p data-i18n="mercadoDesc">Compra e vende rots no mercado!</p>
+        <button
+          class="promo-btn"
+          onclick="window.location.href='market.html'"
+          data-i18n="visitarMercado"
+        >
           Visitar Mercado
         </button>
       </div>
       <div class="promo-card">
         <i class="ri-home-smile-fill promo-icon"></i>
-        <h3>Inventário</h3>
-        <p>Vê os teus rots recolhidos</p>
+        <h3 data-i18n="inventario">Inventário</h3>
+        <p data-i18n="inventarioDesc">Vê os teus rots recolhidos</p>
         <button
           class="promo-btn"
           onclick="window.location.href='inventory.html'"
+          data-i18n="verInventario"
         >
           Ver Inventário
         </button>
@@ -220,22 +259,26 @@
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
-        <h4>SpinRot</h4>
-        <p>Ganhe itens incríveis e divirta-se com nossas roletas e caixas!</p>
+        <h4 data-i18n="spinrot">SpinRot</h4>
+        <p data-i18n="ganheItens">
+          Ganhe itens incríveis e divirta-se com nossas roletas e caixas!
+        </p>
       </div>
       <div class="footer-section">
-        <h4>Links Rápidos</h4>
+        <h4 data-i18n="linksRapidos">Links Rápidos</h4>
         <ul>
-          <li><a href="roulette.html">Roletas</a></li>
-          <li><a href="boxes.html">Caixas</a></li>
-          <li><a href="gratis.html">Grátis</a></li>
-          <li><a href="trades.html">Trocas</a></li>
-          <li><a href="market.html">Mercado</a></li>
-          <li><a href="inventory.html">Inventário</a></li>
+          <li><a href="roulette.html" data-i18n="roletas">Roletas</a></li>
+          <li><a href="boxes.html" data-i18n="caixas">Caixas</a></li>
+          <li><a href="gratis.html" data-i18n="gratis">Grátis</a></li>
+          <li><a href="trades.html" data-i18n="trocas">Trocas</a></li>
+          <li><a href="market.html" data-i18n="mercado">Mercado</a></li>
+          <li>
+            <a href="inventory.html" data-i18n="inventario">Inventário</a>
+          </li>
         </ul>
       </div>
       <div class="footer-section">
-        <h4>Redes Sociais</h4>
+        <h4 data-i18n="redesSociais">Redes Sociais</h4>
         <div class="social-links">
           <a href="#" class="social-link"><i class="ri-facebook-fill"></i></a>
           <a href="#" class="social-link"><i class="ri-twitter-fill"></i></a>
@@ -245,13 +288,15 @@
         </div>
       </div>
       <div class="footer-section">
-        <h4>Contato</h4>
-        <p>Email: suporte@spinrot.com</p>
-        <p>Telefone: +351 123 456 789</p>
+        <h4 data-i18n="contato">Contato</h4>
+        <p data-i18n="email">Email: suporte@spinrot.com</p>
+        <p data-i18n="telefone">Telefone: +351 123 456 789</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2025 SpinRot. Todos os direitos reservados.</p>
+      <p data-i18n="direitosReservados">
+        &copy; 2025 SpinRot. Todos os direitos reservados.
+      </p>
     </div>
   </footer>
   <!-- Bootstrap JS -->

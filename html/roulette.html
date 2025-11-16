@@ -44,32 +44,38 @@
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a class="nav-link" href="gratis.html"
-                ><i class="ri-gift-2-fill"></i><span>Grátis</span></a
+                ><i class="ri-gift-2-fill"></i
+                ><span data-i18n="gratis">Grátis</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="roulette.html"
-                ><i class="ri-vip-diamond-fill"></i><span>Roletas</span></a
+                ><i class="ri-vip-diamond-fill"></i
+                ><span data-i18n="roletas">Roletas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="boxes.html"
-                ><i class="ri-box-1-fill"></i><span>Caixas</span></a
+                ><i class="ri-box-1-fill"></i
+                ><span data-i18n="caixas">Caixas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="trades.html"
-                ><i class="ri-arrow-left-right-line"></i><span>Trocas</span></a
+                ><i class="ri-arrow-left-right-line"></i
+                ><span data-i18n="trocas">Trocas</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="market.html"
-                ><i class="ri-store-fill"></i><span>Mercado</span></a
+                ><i class="ri-store-fill"></i
+                ><span data-i18n="mercado">Mercado</span></a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="inventory.html"
-                ><i class="ri-home-smile-fill"></i><span>Inventário</span></a
+                ><i class="ri-home-smile-fill"></i
+                ><span data-i18n="inventario">Inventário</span></a
               >
             </li>
           </ul>
@@ -83,7 +89,8 @@
                 class="btn btn-warning me-2"
                 onclick="window.location.href='login.html'"
               >
-                <i class="ri-user-3-fill"></i><span>Inicie Sessão</span>
+                <i class="ri-user-3-fill"></i
+                ><span data-i18n="iniciarSessao">Inicie Sessão</span>
               </button>
             </div>
             <div id="user-section" style="display: none">
@@ -106,7 +113,7 @@
               </a>
               <div class="settings-panel" id="settingsPanel">
                 <div class="settings-section">
-                  <h6><span>Idioma</span></h6>
+                  <h6><span data-i18n="idioma">Idioma</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -116,14 +123,20 @@
                       Português
                     </button>
                     <div class="dropdown-options" id="lang-options">
-                      <div class="option" data-lang="pt">Português</div>
-                      <div class="option" data-lang="es">Español</div>
-                      <div class="option" data-lang="en">English</div>
+                      <div class="option" data-lang="pt" data-i18n="portugues">
+                        Português
+                      </div>
+                      <div class="option" data-lang="es" data-i18n="espanhol">
+                        Español
+                      </div>
+                      <div class="option" data-lang="en" data-i18n="ingles">
+                        English
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="settings-section">
-                  <h6><span>Modo</span></h6>
+                  <h6><span data-i18n="modo">Modo</span></h6>
                   <div class="dropdown-container">
                     <button
                       type="button"
@@ -133,8 +146,12 @@
                       Escuro
                     </button>
                     <div class="dropdown-options" id="mode-options">
-                      <div class="option" data-mode="dark">Escuro</div>
-                      <div class="option" data-mode="light">Claro</div>
+                      <div class="option" data-mode="dark" data-i18n="escuro">
+                        Escuro
+                      </div>
+                      <div class="option" data-mode="light" data-i18n="claro">
+                        Claro
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -158,8 +175,8 @@
   </header>
   <body>
     <div class="roulette-container">
-      <h1>Roulette - <span id="box-type"></span></h1>
-      <p>Rodar a roleta custa 100 moedas.</p>
+      <h1 data-i18n="rouletteTitle">Roulette - <span id="box-type"></span></h1>
+      <p data-i18n="spinCostText">Rodar a roleta custa 100 moedas.</p>
       <div class="slot-machine">
         <div class="slot-track" id="slot-track">
           <!-- Items will be populated by JS -->
@@ -167,41 +184,43 @@
         <div class="slot-pointer"></div>
       </div>
       <div class="open-buttons">
-        <button id="spin-button" class="spin-btn" data-i18n="girar">
+        <button id="spin-button" class="spin-btn" data-i18n="spinButton">
           Girar (<span id="spin-cost">100</span>)
         </button>
-        <button id="open-another" class="spin-btn">Abrir Outra</button>
+        <button id="open-another" class="spin-btn" data-i18n="openAnother">
+          Abrir Outra
+        </button>
       </div>
 
       <div class="rarities-section">
-        <h2>Raridades</h2>
+        <h2 data-i18n="rarities">Raridades</h2>
         <div id="rarities-list"></div>
         <div class="chances-section">
-          <h3>Probabilidades de Queda (Modo Todos)</h3>
+          <h3 data-i18n="dropChances">Probabilidades de Queda (Modo Todos)</h3>
           <div class="chances-grid">
             <div class="chance-card rare">
               <div class="rarity-dot"></div>
-              <div class="rarity-name">Raro</div>
+              <div class="rarity-name" data-i18n="rare">Raro</div>
               <div class="rarity-chance">40%</div>
             </div>
             <div class="chance-card epic">
               <div class="rarity-dot"></div>
-              <div class="rarity-name">Épico</div>
+              <div class="rarity-name" data-i18n="epic">Épico</div>
               <div class="rarity-chance">30%</div>
             </div>
             <div class="chance-card legendary">
               <div class="rarity-dot"></div>
-              <div class="rarity-name">Lendário</div>
+              <div class="rarity-name" data-i18n="legendary">Lendário</div>
               <div class="rarity-chance">20%</div>
             </div>
             <div class="chance-card mythical">
               <div class="rarity-dot"></div>
-              <div class="rarity-name">Mítico</div>
+              <div class="rarity-name" data-i18n="mythical">Mítico</div>
               <div class="rarity-chance">8%</div>
             </div>
             <div class="chance-card secret">
               <div class="rarity-dot"></div>
-              <div class="rarity-name">Secreto</div>
+              <div class="rarity-name" data-i18n="secret">Secreto</div>
               <div class="rarity-chance">2%</div>
             </div>
           </div>
