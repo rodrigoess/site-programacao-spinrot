@@ -6,8 +6,14 @@
     <title>Sign in - SpinRot</title>
 
     <!-- Bootstrap / Icons / CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"/>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
     <link rel="stylesheet" href="../css/login.css" />
 
     <!-- Google Identity Services SDK -->
@@ -15,9 +21,18 @@
 
     <style>
       /* só para o demo de estado logado */
-      #me { margin-top: 12px; font-size: .95rem; color: #0a58ca }
-      .g-slot { display:inline-block; }
-      .icon.fake { opacity:.6; pointer-events:none } /* ícones “mortos” das outras redes */
+      #me {
+        margin-top: 12px;
+        font-size: 0.95rem;
+        color: #0a58ca;
+      }
+      .g-slot {
+        display: inline-block;
+      }
+      .icon.fake {
+        opacity: 0.6;
+        pointer-events: none;
+      } /* ícones “mortos” das outras redes */
     </style>
   </head>
   <body>
@@ -27,18 +42,19 @@
         <form id="signup-form">
           <h1>Criar Conta</h1>
 
-          <!-- Substituí APENAS o ícone do Google por um slot real do botão -->
           <div class="social-icons">
             <span class="g-slot" id="g_btn_up"></span>
-            <a class="icon fake"><i class="ri-microsoft-fill"></i></a>
-            <a class="icon fake"><i class="ri-apple-fill"></i></a>
-            <a class="icon fake"><i class="ri-phone-fill"></i></a>
           </div>
 
           <span>ou usa o teu email para o registo</span>
           <input type="text" id="signup-name" placeholder="Nome" required />
           <input type="email" id="signup-email" placeholder="Email" required />
-          <input type="password" id="signup-password" placeholder="Palavra-passe" required />
+          <input
+            type="password"
+            id="signup-password"
+            placeholder="Palavra-passe"
+            required
+          />
           <button type="submit">Sign Up</button>
           <div id="me-up"></div>
         </form>
@@ -56,7 +72,12 @@
 
           <span>ou usa a palavra-passe da tua conta</span>
           <input type="email" id="signin-email" placeholder="Email" required />
-          <input type="password" id="signin-password" placeholder="Palavra-passe" required />
+          <input
+            type="password"
+            id="signin-password"
+            placeholder="Palavra-passe"
+            required
+          />
           <a href="#">Esqueceste-te da palavra-passe?</a>
           <button type="submit">Sign In</button>
           <div id="me-in"></div>
@@ -68,13 +89,19 @@
         <div class="toggle">
           <div class="toggle-panel toggle-left">
             <h1>Bem-vindo de volta!</h1>
-            <p>Entra com os teus dados pessoais para usufruir de todas as funcionalidades do site.</p>
+            <p>
+              Entra com os teus dados pessoais para usufruir de todas as
+              funcionalidades do site.
+            </p>
             <button class="hidden" id="login" type="button">Sign In</button>
           </div>
 
           <div class="toggle-panel toggle-right">
             <h1>Olá!</h1>
-            <p>Regista-te com os teus dados pessoais para usufruir de todas as funcionalidades do site.</p>
+            <p>
+              Regista-te com os teus dados pessoais para usufruir de todas as
+              funcionalidades do site.
+            </p>
             <button class="hidden" id="register" type="button">Sign Up</button>
           </div>
         </div>
@@ -84,25 +111,26 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // ===== IMPORTANTÍSSIMO: NUNCA ABRIR COMO file:// =====
-      if (location.protocol === "file:") {
-        alert("Abre este ficheiro pelo Live Server (http://127.0.0.1:5501), não como file://");
-      }
-
-      const CLIENT_ID = "21661958271-7ntv5qj157mev6sslqvflope8slqedf3.apps.googleusercontent.com";
+      const CLIENT_ID =
+        "21661958271-7ntv5qj157mev6sslqvflope8slqedf3.apps.googleusercontent.com";
 
       // Callback chamado quando o utilizador escolhe a conta
       async function handleCredentialResponse({ credential }) {
         // Para demonstração no Live Server (sem back-end), vamos apenas decodificar o JWT.
         const payload = parseJwt(credential);
         // Mostra o utilizador nas duas colunas
-        document.getElementById("me-in").textContent  =
-          `Logado como: ${payload.name} <${payload.email}>`;
-        document.getElementById("me-up").textContent  =
-          `Logado como: ${payload.name} <${payload.email}>`;
+        document.getElementById(
+          "me-in"
+        ).textContent = `Logado como: ${payload.name} <${payload.email}>`;
+        document.getElementById(
+          "me-up"
+        ).textContent = `Logado como: ${payload.name} <${payload.email}>`;
 
         // Salvar o utilizador logado no localStorage (integrado com o sistema existente)
-        localStorage.setItem("spinrot_logged_in", JSON.stringify({ name: payload.name, email: payload.email }));
+        localStorage.setItem(
+          "spinrot_logged_in",
+          JSON.stringify({ name: payload.name, email: payload.email })
+        );
 
         // Redirecionar para a página principal
         window.location.href = "index.html";
@@ -123,11 +151,16 @@
         google.accounts.id.initialize({
           client_id: CLIENT_ID,
           callback: handleCredentialResponse,
-          ux_mode: "popup" // evita redirects
+          ux_mode: "popup", // evita redirects
         });
 
         // Renderiza o botão nas duas zonas
-        const opts = { theme: "outline", size: "large", type: "standard", shape: "rectangular" };
+        const opts = {
+          theme: "outline",
+          size: "large",
+          type: "standard",
+          shape: "rectangular",
+        };
         const up = document.getElementById("g_btn_up");
         const inn = document.getElementById("g_btn_in");
         google.accounts.id.renderButton(up, opts);
@@ -138,16 +171,22 @@
       };
 
       // Decodifica o ID Token (só para debug local)
-      function parseJwt (token) {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
+      function parseJwt(token) {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split("")
+            .map(function (c) {
+              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+        );
         return JSON.parse(jsonPayload);
       }
     </script>
 
     <script src="../js/script.js"></script>
+    <script src="../js/google-auth.js"></script>
   </body>
 </html>

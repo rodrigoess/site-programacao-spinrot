@@ -2,21 +2,15 @@
 
 // Box costs in coins
 const boxCosts = {
-  rare: 5,
-  epic: 10,
-  legendary: 20,
-  mythical: 50,
-  secret: 100,
+  rare: 10,
+  epic: 50,
+  legendary: 200,
+  mythical: 500,
+  secret: 1000,
 };
 
-// Function to open box (pay and redirect to roulette)
+// Function to open box (redirect to roulette, coins deducted on spin)
 function openBox(boxType) {
-  const cost = boxCosts[boxType];
-  if (balance < cost) {
-    alert(`Você não tem moedas suficientes! Precisa de ${cost} moedas.`);
-    return;
-  }
-  spendCoins(cost);
   window.location.href = `roulette.html?type=${boxType}`;
 }
 

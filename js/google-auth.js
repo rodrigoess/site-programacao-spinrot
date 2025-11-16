@@ -19,6 +19,9 @@ function handleCredentialResponse(response) {
     localStorage.setItem("user_picture", responsePayload.picture);
     localStorage.setItem("is_logged_in", "true");
 
+    // Update UI to show logged in user
+    updateUserUI(responsePayload.name);
+
     // Redirect to main page or show success message
     alert("Login com Google bem-sucedido! Bem-vindo, " + responsePayload.name);
     window.location.href = "index.html";
@@ -94,11 +97,25 @@ function checkLoginStatus() {
   if (isLoggedIn === "true" && userName) {
     // User is logged in, update UI accordingly
     console.log("User logged in:", userName);
-    // You can add code here to update the navbar or show user info
+    updateUserUI(userName);
+  }
+}
+
+// Function to update the UI with logged in user info
+function updateUserUI(userName) {
+  const loginSection = document.getElementById("login-section");
+  const userSection = document.getElementById("user-section");
+  const userNameElement = document.getElementById("user-name");
+
+  if (loginSection && userSection && userNameElement) {
+    loginSection.style.display = "none";
+    userSection.style.display = "flex";
+    userNameElement.textContent = userName;
   }
 }
 
 // Initialize when page loads
 document.addEventListener("DOMContentLoaded", function () {
   checkLoginStatus();
+  updateUserDisplay();
 });

@@ -376,13 +376,10 @@ body.light-mode .settings-option:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
 }
 
-.promo-img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 10px;
+.promo-icon {
+  font-size: 80px;
+  color: #d7aa00;
   margin-bottom: 1rem;
-  border: 2px solid #d7aa00;
 }
 
 .promo-card h3 {

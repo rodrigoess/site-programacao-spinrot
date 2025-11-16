@@ -78,12 +78,23 @@
             <div id="coin-display" class="me-3 text-white">
               <i class="ri-coin-fill"></i> <span id="coin-amount">0</span>
             </div>
-            <button
-              class="btn btn-warning me-2"
-              onclick="window.location.href='login.html'"
-            >
-              <i class="ri-user-3-fill"></i><span>Inicie Sessão</span>
-            </button>
+            <div id="login-section">
+              <button
+                class="btn btn-warning me-2"
+                onclick="window.location.href='login.html'"
+              >
+                <i class="ri-user-3-fill"></i><span>Inicie Sessão</span>
+              </button>
+            </div>
+            <div id="user-section" style="display: none">
+              <span
+                class="me-2 d-flex align-items-center"
+                id="user-name"
+              ></span>
+              <button class="btn btn-danger me-2" onclick="logoutUser()">
+                <i class="ri-logout-box-r-line"></i> Logout
+              </button>
+            </div>
             <div class="btnd">
               <a
                 href="#"
@@ -128,12 +139,17 @@
                   </div>
                 </div>
               </div>
-              <a href="#" class="btn btn-secondary me-1"
+              <a
+                href="inventory.html?favorites=true"
+                class="btn btn-secondary me-1"
                 ><i class="ri-heart-fill"></i
               ></a>
-              <a href="#" class="btn btn-secondary"
+              <a href="#" class="btn btn-secondary cart-btn"
                 ><i class="ri-shopping-cart-2-fill"></i
-              ></a>
+                ><span id="cart-badge" class="cart-badge" style="display: none"
+                  >0</span
+                ></a
+              >
             </div>
           </div>
         </div>
@@ -148,42 +164,42 @@
           <div class="box-image">
             <i class="ri-box-1-fill"></i>
           </div>
-          <h3>Rare</h3>
+          <h3>Rare (10)</h3>
           <p>Abra para obter itens raros!</p>
         </div>
         <div class="box" id="epic-box">
           <div class="box-image">
             <i class="ri-box-1-fill"></i>
           </div>
-          <h3>Epic</h3>
+          <h3>Epic (50)</h3>
           <p>Abra para obter itens épicos!</p>
         </div>
         <div class="box" id="legendary-box">
           <div class="box-image">
             <i class="ri-box-1-fill"></i>
           </div>
-          <h3>Legendary</h3>
+          <h3>Legendary (200)</h3>
           <p>Abra para obter itens lendários!</p>
         </div>
         <div class="box" id="mythical-box">
           <div class="box-image">
             <i class="ri-box-1-fill"></i>
           </div>
-          <h3>Mythical</h3>
+          <h3>Mythical (500)</h3>
           <p>Abra para obter itens míticos!</p>
         </div>
         <div class="box" id="secret-box">
           <div class="box-image">
             <i class="ri-box-1-fill"></i>
           </div>
-          <h3>Secret</h3>
+          <h3>Secret (1000)</h3>
           <p>Abra para obter itens secretos!</p>
         </div>
       </div>
       <div id="result-modal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <h2>Você ganhou:</h2>
+          <h2>Ganhaste:</h2>
           <p id="item-result"></p>
         </div>
       </div>

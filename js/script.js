@@ -1,51 +1,117 @@
-// script.js - Global balance and utility functions
+// script.js - Funções globais de saldo e utilitários
 
-// Global balance management
+// Gestão global de saldo
 let balance = Math.max(
   parseInt(localStorage.getItem("spinrot_balance")) || 0,
   parseInt(localStorage.getItem("coins")) || 0
 );
-// Always set spinrot_balance to the current balance and remove old key
+// Sempre definir spinrot_balance para o saldo atual e remover chave antiga
 localStorage.setItem("spinrot_balance", balance.toString());
 if (localStorage.getItem("coins")) {
   localStorage.removeItem("coins");
 }
 
-// Inventory management
+// Gestão de inventário
 let inventory = JSON.parse(localStorage.getItem("spinrot_inventory")) || [];
 
-// Update balance display (works on any page with balance-display element)
+// Gestão de favoritos
+let favorites = JSON.parse(localStorage.getItem("spinrot_favorites")) || [];
+
+// Gestão de histórico de transações removida
+
+// Gestão de carrinho de compras
+let cart = JSON.parse(localStorage.getItem("spinrot_cart")) || [];
+
+// Adicionar item ao carrinho
+function addToCart(item, rarity, price) {
+  const existingItem = cart.find(
+    (cartItem) => cartItem.item === item && cartItem.rarity === rarity
+  );
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ item, rarity, price, quantity: 1 });
+  }
+  saveCart();
+  alert(`Adicionou ${item} (${rarity}) ao carrinho!`);
+}
+
+// Remover item do carrinho
+function removeFromCart(item, rarity) {
+  cart = cart.filter(
+    (cartItem) => !(cartItem.item === item && cartItem.rarity === rarity)
+  );
+  saveCart();
+}
+
+// Atualizar quantidade de item no carrinho
+function updateCartQuantity(item, rarity, quantity) {
+  const cartItem = cart.find(
+    (cartItem) => cartItem.item === item && cartItem.rarity === rarity
+  );
+  if (cartItem) {
+    cartItem.quantity = quantity;
+    if (cartItem.quantity <= 0) {
+      removeFromCart(item, rarity);
+    } else {
+      saveCart();
+    }
+  }
+}
+
+// Obter total do carrinho
+function getCartTotal() {
+  return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+}
+
+// Obter itens do carrinho
+function getCart() {
+  return cart;
+}
+
+// Limpar carrinho
+function clearCart() {
+  cart = [];
+  saveCart();
+}
+
+// Salvar carrinho no localStorage
+function saveCart() {
+  localStorage.setItem("spinrot_cart", JSON.stringify(cart));
+}
+
+// Atualizar exibição de saldo (funciona em qualquer página com elemento balance-display)
 function updateBalanceDisplay() {
   const balanceElements = document.querySelectorAll(".balance-display span");
   balanceElements.forEach((element) => {
     element.textContent = balance;
   });
-  // Also update coin display
+  // Também atualizar exibição de moedas
   const coinAmount = document.getElementById("coin-amount");
   if (coinAmount) {
     coinAmount.textContent = balance;
   }
 }
 
-// Update coin display (alias for updateBalanceDisplay)
+// Atualizar exibição de moedas (alias para updateBalanceDisplay)
 function updateCoinDisplay() {
   updateBalanceDisplay();
 }
 
-// Save balance to localStorage
+// Salvar saldo no localStorage
 function saveBalance() {
   localStorage.setItem("spinrot_balance", balance.toString());
 }
 
-// Add coins to balance
-function addCoins(amount) {
+// Adicionar moedas ao saldo
+function addCoins(amount, description = "Ganho") {
   balance += amount;
   saveBalance();
   updateBalanceDisplay();
 }
 
-// Spend coins from balance
-function spendCoins(amount) {
+// Gastar moedas do saldo
+function spendCoins(amount, description = "Compra") {
   if (balance >= amount) {
     balance -= amount;
     saveBalance();
@@ -55,18 +121,46 @@ function spendCoins(amount) {
   return false;
 }
 
-// Add item to inventory
+// Adicionar item ao inventário
 function addToInventory(item, rarity) {
   inventory.push({ item, rarity, date: new Date().toISOString() });
   localStorage.setItem("spinrot_inventory", JSON.stringify(inventory));
 }
 
-// Get inventory
+// Obter inventário
 function getInventory() {
   return inventory;
 }
 
-// Login/Register functionality
+// Adicionar item aos favoritos
+function addToFavorites(item, rarity) {
+  if (!favorites.some((fav) => fav.item === item && fav.rarity === rarity)) {
+    favorites.push({ item, rarity, date: new Date().toISOString() });
+    localStorage.setItem("spinrot_favorites", JSON.stringify(favorites));
+  }
+}
+
+// Remover item dos favoritos
+function removeFromFavorites(item, rarity) {
+  favorites = favorites.filter(
+    (fav) => !(fav.item === item && fav.rarity === rarity)
+  );
+  localStorage.setItem("spinrot_favorites", JSON.stringify(favorites));
+}
+
+// Verificar se item está nos favoritos
+function isFavorite(item, rarity) {
+  return favorites.some((fav) => fav.item === item && fav.rarity === rarity);
+}
+
+// Obter favoritos
+function getFavorites() {
+  return favorites;
+}
+
+// Funções de histórico de transações removidas
+
+// Funcionalidade de login/registo
 const container = document.getElementById("container");
 const registerBtn = document.getElementById("register");
 const loginBtn = document.getElementById("login");
@@ -83,7 +177,7 @@ if (container && registerBtn && loginBtn) {
   });
 }
 
-// Authentication functions
+// Funções de autenticação
 function registerUser(name, email, password) {
   const users = JSON.parse(localStorage.getItem("spinrot_users")) || [];
   const existingUser = users.find((user) => user.email === email);
@@ -125,7 +219,41 @@ function getLoggedInUser() {
   return JSON.parse(localStorage.getItem("spinrot_logged_in"));
 }
 
-// Form handlers
+// Atualizar exibição do usuário logado
+function updateUserDisplay() {
+  const loginSection = document.getElementById("login-section");
+  const userSection = document.getElementById("user-section");
+  const userNameElement = document.getElementById("user-name");
+
+  if (loginSection && userSection && userNameElement) {
+    let userName = null;
+
+    // Check custom login
+    const loggedInUser = getLoggedInUser();
+    if (loggedInUser) {
+      userName = loggedInUser.name;
+    }
+
+    // Check Google login if not found
+    if (!userName) {
+      const isGoogleLoggedIn = localStorage.getItem("is_logged_in") === "true";
+      if (isGoogleLoggedIn) {
+        userName = localStorage.getItem("user_name");
+      }
+    }
+
+    if (userName) {
+      loginSection.style.display = "none";
+      userSection.style.display = "flex";
+      userNameElement.textContent = userName;
+    } else {
+      loginSection.style.display = "block";
+      userSection.style.display = "none";
+    }
+  }
+}
+
+// Manipuladores de formulário
 document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const signinForm = document.getElementById("signin-form");
@@ -139,6 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (registerUser(name, email, password)) {
         alert("Conta criada com sucesso!");
+        updateUserDisplay();
         window.location.href = "index.html";
       }
     });
@@ -152,6 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (loginUser(email, password)) {
         alert("Login bem-sucedido!");
+        updateUserDisplay();
         window.location.href = "index.html";
       } else {
         alert("Email ou palavra-passe incorretos!");
@@ -160,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Map items to their image files (shared across all pages)
+// Mapear itens para os seus ficheiros de imagem (partilhado em todas as páginas)
 const itemImages = {
   "Brr Brr Patapim": "Brr Brr Patapim.jpg",
   "Cappuccino Assassino": "Cappuccino Assassino.png",
@@ -182,12 +312,12 @@ const itemImages = {
   "Boneca Ambalabu": "Boneca Ambalabu.webp",
   "Tralalero Tralala": "Tralalero Tralala.jfif",
   "Bombardiro Crocodilo": "Bombardiro Crocodilo.jpg",
-  "Brainrot Azul": "Blueberrinni Octopussini.jfif", // Placeholder mapping
-  "Brainrot Verde": "Girafa Celestre.jfif", // Placeholder mapping
-  "Brainrot Dourado": "Lirilì Larilà.jfif", // Placeholder mapping
+  "Brainrot Azul": "Blueberrinni Octopussini.jfif", // Mapeamento placeholder
+  "Brainrot Verde": "Girafa Celestre.jfif", // Mapeamento placeholder
+  "Brainrot Dourado": "Lirilì Larilà.jfif", // Mapeamento placeholder
 };
 
-// Translations object
+// Objeto de traduções
 const translations = {
   pt: {
     gratis: "Grátis",
@@ -228,6 +358,9 @@ const translations = {
     email: "Email: suporte@spinrot.com",
     telefone: "Telefone: +351 123 456 789",
     direitosReservados: "&copy; 2025 SpinRot. Todos os direitos reservados.",
+    preco: "Preço",
+    moedas: "moedas",
+    girar: "Girar",
   },
   es: {
     gratis: "Gratis",
@@ -246,9 +379,9 @@ const translations = {
     escuro: "Oscuro",
     claro: "Claro",
     bemVindo: "¡Bienvenido a SpinRot - Gana Rots Increíbles!",
-    exploraOpcoes: "¡Explora nuestras opciones y gana artículos únicos!",
+    exploraOpcoes: "¡Explora nuestras opciones y gana items únicos!",
     roletasDesc: "¡Gira la rueda y gana rots raros y épicos!",
-    caixasDesc: "¡Abre cajas y descubre artículos legendarios!",
+    caixasDesc: "¡Abre cajas y descubre items legendarios!",
     gratisDesc: "¡Juega gratis y gana sin gastar nada!",
     trocasDesc: "¡Intercambia tus rots con otros jugadores!",
     mercadoDesc: "¡Compra y vende rots en el mercado!",
@@ -261,13 +394,16 @@ const translations = {
     verInventario: "Ver Inventario",
     spinrot: "SpinRot",
     ganheItens:
-      "¡Gana artículos increíbles y diviértete con nuestras ruletas y cajas!",
+      "¡Gana items increíbles y diviértete con nuestras ruletas y cajas!",
     linksRapidos: "Enlaces Rápidos",
     redesSociais: "Redes Sociales",
     contato: "Contacto",
     email: "Email: soporte@spinrot.com",
     telefone: "Teléfono: +351 123 456 789",
     direitosReservados: "&copy; 2025 SpinRot. Todos los derechos reservados.",
+    preco: "Precio",
+    moedas: "monedas",
+    girar: "Girar",
   },
   en: {
     gratis: "Free",
@@ -302,213 +438,55 @@ const translations = {
     spinrot: "SpinRot",
     ganheItens: "Win amazing items and have fun with our roulettes and boxes!",
     linksRapidos: "Quick Links",
-    redesSociais: "Social Media",
+    redesSociais: "Social Networks",
     contato: "Contact",
     email: "Email: support@spinrot.com",
     telefone: "Phone: +351 123 456 789",
     direitosReservados: "&copy; 2025 SpinRot. All rights reserved.",
+    preco: "Price",
+    moedas: "coins",
+    girar: "Spin",
   },
 };
 
-// Function to update UI text based on language
-function updateLanguage(lang) {
-  const t = translations[lang];
-  const navSpans = document.querySelectorAll("nav .nav-link span");
-  if (navSpans.length >= 6) {
-    navSpans[0].textContent = t.gratis;
-    navSpans[1].textContent = t.roletas;
-    navSpans[2].textContent = t.caixas;
-    navSpans[3].textContent = t.trocas;
-    navSpans[4].textContent = t.mercado;
-    navSpans[5].textContent = t.inventario;
-  }
-  const btnSpan = document.querySelector(".btn span");
-  if (btnSpan) btnSpan.textContent = t.iniciarSessao;
-  const langLabel = document.getElementById("lang-label");
-  const modeLabel = document.getElementById("mode-label");
-  const currencyLabel = document.getElementById("currency-label");
-  if (langLabel) langLabel.textContent = t.idioma;
-  if (modeLabel) modeLabel.textContent = t.modo;
-
-  // Update hero section
-  const heroH1 = document.querySelector(".hero-section h1");
-  if (heroH1) heroH1.textContent = t.bemVindo;
-  const heroP = document.querySelector(".hero-section p");
-  if (heroP) heroP.textContent = t.exploraOpcoes;
-
-  // Update promo cards
-  const promoCards = document.querySelectorAll(".promo-card");
-  if (promoCards.length >= 6) {
-    promoCards[0].querySelector("h3").textContent = t.roletas;
-    promoCards[0].querySelector("p").textContent = t.roletasDesc;
-    promoCards[0].querySelector(".promo-btn").textContent = t.jogarAgora;
-    promoCards[1].querySelector("h3").textContent = t.caixas;
-    promoCards[1].querySelector("p").textContent = t.caixasDesc;
-    promoCards[1].querySelector(".promo-btn").textContent = t.abrirCaixas;
-    promoCards[2].querySelector("h3").textContent = t.gratis;
-    promoCards[2].querySelector("p").textContent = t.gratisDesc;
-    promoCards[2].querySelector(".promo-btn").textContent = t.jogarGratis;
-    promoCards[3].querySelector("h3").textContent = t.trocas;
-    promoCards[3].querySelector("p").textContent = t.trocasDesc;
-    promoCards[3].querySelector(".promo-btn").textContent = t.trocarAgora;
-    promoCards[4].querySelector("h3").textContent = t.mercado;
-    promoCards[4].querySelector("p").textContent = t.mercadoDesc;
-    promoCards[4].querySelector(".promo-btn").textContent = t.visitarMercado;
-    promoCards[5].querySelector("h3").textContent = t.inventario;
-    promoCards[5].querySelector("p").textContent = t.inventarioDesc;
-    promoCards[5].querySelector(".promo-btn").textContent = t.verInventario;
-  }
-
-  // Update footer
-  const footerH4s = document.querySelectorAll(".footer-section h4");
-  if (footerH4s.length >= 4) {
-    footerH4s[0].textContent = t.spinrot;
-    footerH4s[1].textContent = t.linksRapidos;
-    footerH4s[2].textContent = t.redesSociais;
-    footerH4s[3].textContent = t.contato;
-  }
-  const footerP = document.querySelector(".footer-section p");
-  if (footerP) footerP.textContent = t.ganheItens;
-  const footerLinks = document.querySelectorAll(".footer-section ul li a");
-  if (footerLinks.length >= 6) {
-    footerLinks[0].textContent = t.roletas;
-    footerLinks[1].textContent = t.caixas;
-    footerLinks[2].textContent = t.gratis;
-    footerLinks[3].textContent = t.trocas;
-    footerLinks[4].textContent = t.mercado;
-    footerLinks[5].textContent = t.inventario;
-  }
-  const footerContact = document.querySelectorAll(".footer-section p");
-  if (footerContact.length >= 3) {
-    footerContact[1].textContent = t.email;
-    footerContact[2].textContent = t.telefone;
-  }
-  const footerBottom = document.querySelector(".footer-bottom p");
-  if (footerBottom) footerBottom.innerHTML = t.direitosReservados;
-
-  // Update page titles
-  const pageTitles = document.querySelectorAll("h1");
-  if (pageTitles.length > 0) {
-    // Assuming the first h1 is the main title
-    const title = pageTitles[0];
-    if (title.textContent.includes("Caixas")) {
-      title.textContent = t.caixas;
-    } else if (title.textContent.includes("Mercado")) {
-      title.textContent = t.mercado;
-    } else if (title.textContent.includes("Trocas")) {
-      title.textContent = t.trocas;
-    } else if (title.textContent.includes("Inventário")) {
-      title.textContent = t.inventario;
-    }
-  }
+// Função para obter o idioma atual (padrão: 'pt')
+function getCurrentLanguage() {
+  return localStorage.getItem("spinrot_language") || "pt";
 }
 
-// Function to toggle settings panel
+// Função para definir o idioma
+function setCurrentLanguage(lang) {
+  localStorage.setItem("spinrot_language", lang);
+}
+
+// Função de tradução
+function t(key) {
+  const lang = getCurrentLanguage();
+  return translations[lang] && translations[lang][key]
+    ? translations[lang][key]
+    : key;
+}
+
+// Aplicar traduções aos elementos com data-i18n
+function applyTranslations() {
+  const elements = document.querySelectorAll("[data-i18n]");
+  elements.forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    el.textContent = t(key);
+  });
+}
+
+// Função para alternar o painel de configurações
 function toggleSettingsPanel() {
-  const settingsPanel = document.getElementById("settingsPanel");
-  if (settingsPanel) {
-    settingsPanel.classList.toggle("active");
+  const panel = document.getElementById("settingsPanel");
+  if (panel) {
+    panel.classList.toggle("active");
   }
 }
 
-// Check login status and update UI
-function checkLoginStatus() {
-  if (isLoggedIn()) {
-    const user = getLoggedInUser();
-    const loginSection = document.getElementById("login-section");
-    const userSection = document.getElementById("user-section");
-    const userName = document.getElementById("user-name");
-
-    if (loginSection) loginSection.style.display = "none";
-    if (userSection) userSection.style.display = "flex";
-    if (userName) userName.textContent = `Olá, ${user.name}!`;
-  }
-}
-
-// Settings functionality
+// Aplicar traduções no carregamento da página
 document.addEventListener("DOMContentLoaded", () => {
-  // Update balance display on page load
+  applyTranslations();
+  updateUserDisplay();
   updateBalanceDisplay();
-
-  // Check login status
-  checkLoginStatus();
-
-  // Load saved preferences
-  const savedLang = localStorage.getItem("language") || "pt";
-  const savedMode = localStorage.getItem("theme") || "dark";
-
-  // Apply saved theme
-  if (savedMode === "light") {
-    document.body.classList.add("light-mode");
-  }
-
-  // Update language on load
-  updateLanguage(savedLang);
-
-  // Initialize current selections
-  const currentLang = document.getElementById("current-lang");
-  const currentMode = document.getElementById("current-mode");
-
-  const langMap = { pt: "Português", es: "Español", en: "English" };
-  const modeMap = { dark: "Escuro", light: "Claro" };
-
-  if (currentLang) currentLang.textContent = langMap[savedLang];
-  if (currentMode) currentMode.textContent = modeMap[savedMode];
-
-  // Close panel when clicking outside
-  document.addEventListener("click", (e) => {
-    const settingsBtn = document.getElementById("settingsBtn");
-    const settingsPanel = document.getElementById("settingsPanel");
-    const dropdowns = document.querySelectorAll(".dropdown-options");
-    if (
-      settingsBtn &&
-      settingsPanel &&
-      !settingsBtn.contains(e.target) &&
-      !settingsPanel.contains(e.target)
-    ) {
-      settingsPanel.classList.remove("active");
-      dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
-    }
-  });
-
-  // Dropdown toggle functionality
-  document.querySelectorAll(".current-selection").forEach((selection) => {
-    selection.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const dropdown = selection.nextElementSibling;
-      const allDropdowns = document.querySelectorAll(".dropdown-options");
-      allDropdowns.forEach((d) => {
-        if (d !== dropdown) d.classList.remove("active");
-      });
-      if (dropdown) dropdown.classList.toggle("active");
-    });
-  });
-
-  // Language options
-  document.querySelectorAll("#lang-options .option").forEach((option) => {
-    option.addEventListener("click", (e) => {
-      const lang = e.target.getAttribute("data-lang");
-      localStorage.setItem("language", lang);
-      if (currentLang) currentLang.textContent = langMap[lang];
-      const langOptions = document.getElementById("lang-options");
-      if (langOptions) langOptions.classList.remove("active");
-      updateLanguage(lang);
-    });
-  });
-
-  // Mode options
-  document.querySelectorAll("#mode-options .option").forEach((option) => {
-    option.addEventListener("click", (e) => {
-      const mode = e.target.getAttribute("data-mode");
-      if (mode === "light") {
-        document.body.classList.add("light-mode");
-      } else {
-        document.body.classList.remove("light-mode");
-      }
-      localStorage.setItem("theme", mode);
-      if (currentMode) currentMode.textContent = modeMap[mode];
-      const modeOptions = document.getElementById("mode-options");
-      if (modeOptions) modeOptions.classList.remove("active");
-    });
-  });
 });

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -78,12 +78,23 @@
             <div id="coin-display" class="me-3 text-white">
               <i class="ri-coin-fill"></i> <span id="coin-amount">0</span>
             </div>
-            <button
-              class="btn btn-warning me-2"
-              onclick="window.location.href='login.html'"
-            >
-              <i class="ri-user-3-fill"></i><span>Inicie Sessão</span>
-            </button>
+            <div id="login-section">
+              <button
+                class="btn btn-warning me-2"
+                onclick="window.location.href='login.html'"
+              >
+                <i class="ri-user-3-fill"></i><span>Inicie Sessão</span>
+              </button>
+            </div>
+            <div id="user-section" style="display: none">
+              <span
+                class="me-2 d-flex align-items-center"
+                id="user-name"
+              ></span>
+              <button class="btn btn-danger me-2" onclick="logoutUser()">
+                <i class="ri-logout-box-r-line"></i> Logout
+              </button>
+            </div>
             <div class="btnd">
               <a
                 href="#"
@@ -127,30 +138,15 @@
                     </div>
                   </div>
                 </div>
-                <div class="settings-section">
-                  <h6><span>Moeda</span></h6>
-                  <div class="dropdown-container">
-                    <button
-                      type="button"
-                      class="current-selection"
-                      id="current-currency"
-                    >
-                      EUR
-                    </button>
-                    <div class="dropdown-options" id="currency-options">
-                      <div class="option" data-currency="EUR">EUR</div>
-                      <div class="option" data-currency="USD">USD</div>
-                      <div class="option" data-currency="GBP">GBP</div>
-                    </div>
-                  </div>
-                </div>
+
               </div>
-              <a href="#" class="btn btn-secondary me-1"
+              <a href="inventory.html?favorites=true" class="btn btn-secondary me-1"
                 ><i class="ri-heart-fill"></i
               ></a>
-              <a href="#" class="btn btn-secondary"
+              <a href="#" class="btn btn-secondary cart-btn"
                 ><i class="ri-shopping-cart-2-fill"></i
-              ></a>
+                ><span id="cart-badge" class="cart-badge" style="display: none">0</span></a
+              >
             </div>
           </div>
         </div>
@@ -160,7 +156,7 @@
   <body>
     <div class="hero-section">
       <h1>Inventário - Os teus a Rots Coletados</h1>
-      <p>Veja todos os rots que você ganhou nas roletas e caixas!</p>
+      <p>Vê todos os rots que ganhaste nas roletas e caixas!</p>
     </div>
 
     <div class="container mt-5">
@@ -168,7 +164,12 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title">Seus Rots</h3>
+              <h3 class="card-title">Os Teus Rots</h3>
+              <div class="inventory-filters">
+                <button class="btn btn-outline-primary filter-btn active" data-filter="all">Todos</button>
+                <button class="btn btn-outline-danger filter-btn" data-filter="favorites">Favoritos</button>
+              </div>
+              <button id="show-favorites-btn" class="btn btn-outline-primary mb-3" style="display: none;">Mostrar Favoritos</button>
               <div id="inventory-list" class="inventory-list">
                 <!-- Inventory items will be populated here -->
               </div>
@@ -177,8 +178,8 @@
                 class="text-center mt-4"
                 style="display: none"
               >
-                <p>Você ainda não tem nenhum rot no inventário.</p>
-                <p>Jogue nas roletas ou abra caixas para ganhar rots!</p>
+                <p>Ainda não tens nenhum rot no inventário.</p>
+                <p>Joga nas roletas ou abre caixas para ganhar rots!</p>
               </div>
             </div>
           </div>

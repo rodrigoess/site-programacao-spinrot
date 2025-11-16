@@ -26,12 +26,12 @@ const items = {
 
 // Roulette costs in coins
 const rouletteCosts = {
-  rare: 5,
-  epic: 10,
-  legendary: 20,
-  mythical: 50,
-  secret: 100,
-  all: 10,
+  rare: 10,
+  epic: 50,
+  legendary: 200,
+  mythical: 500,
+  secret: 1000,
+  all: 100,
 };
 
 // Get URL parameters
@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   populateSlot();
   populateRarities();
   updateBalanceDisplay();
+  updateSpinCost();
 
   // Spin button event
   document
@@ -62,6 +63,13 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "boxes.html";
   });
 });
+
+// Update spin cost display
+function updateSpinCost() {
+  const boxType = getQueryParam("type") || "all";
+  const cost = rouletteCosts[boxType];
+  document.getElementById("spin-cost").textContent = cost;
+}
 
 // Populate the slot with items
 function populateSlot() {

@@ -65,6 +65,7 @@ function openGift() {
       rewardDisplay.style.display = "none";
       giftBox.style.animation = "";
       startTimer();
+      updateButtonStates(); // Update button states after gaining coins
     }, 3000);
   }
 }
@@ -77,6 +78,19 @@ function openBoxes() {
     window.location.href = "boxes.html";
   } else {
     alert("Você precisa de 5 moedas para abrir caixas!");
+  }
+}
+
+// Update button states based on balance
+function updateButtonStates() {
+  const openBoxesBtn = document.getElementById("open-boxes-btn");
+  const spinRouletteBtn = document.getElementById("spin-roulette-btn");
+
+  if (openBoxesBtn) {
+    openBoxesBtn.disabled = balance < 5;
+  }
+  if (spinRouletteBtn) {
+    spinRouletteBtn.disabled = balance < 10;
   }
 }
 

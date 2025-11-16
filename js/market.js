@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   displayMarketListings();
   displaySellInventory();
   updateBalanceDisplay();
+  updateCartBadge();
 });
 
 // Initialize market with all brainrots for sale
@@ -90,6 +91,7 @@ function displayMarketListings() {
       : `https://via.placeholder.com/100x100?text=${encodeURIComponent(
           listing.item.item
         )}`;
+    const isFav = isFavorite(listing.item.item, listing.item.rarity);
     listingCard.innerHTML = `
       <img src="${imageSrc}" alt="${listing.item.item}" />
       <div class="item-info">
@@ -101,12 +103,42 @@ function displayMarketListings() {
           listing.price
         } Moedas</p>
       </div>
-      <button class="btn btn-success buy-btn" data-index="${index}">Comprar</button>
+      <div class="item-actions">
+        <button class="btn btn-outline-danger like-btn ${
+          isFav ? "liked" : ""
+        }" data-item="${listing.item.item}" data-rarity="${
+      listing.item.rarity
+    }">
+          <i class="ri-heart-${isFav ? "fill" : "line"}"></i>
+        </button>
+        <button class="btn btn-success buy-btn" data-index="${index}">Adicionar ao Carrinho</button>
+      </div>
     `;
+
+    // Add click event to like button
+    const likeBtn = listingCard.querySelector(".like-btn");
+    likeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const item = e.target.closest(".like-btn").getAttribute("data-item");
+      const rarity = e.target.closest(".like-btn").getAttribute("data-rarity");
+      if (isFavorite(item, rarity)) {
+        removeFromFavorites(item, rarity);
+        e.target.closest(".like-btn").classList.remove("liked");
+        e.target.querySelector("i").className = "ri-heart-line";
+      } else {
+        addToFavorites(item, rarity);
+        e.target.closest(".like-btn").classList.add("liked");
+        e.target.querySelector("i").className = "ri-heart-fill";
+      }
+      // Refresh the display to show updated favorites
+      displayMarketListings();
+    });
 
     // Add click event to buy button
     const buyBtn = listingCard.querySelector(".buy-btn");
-    buyBtn.addEventListener("click", () => showPurchaseModal(listing, index));
+    buyBtn.addEventListener("click", () =>
+      addToCart(listing.item.item, listing.item.rarity, listing.price)
+    );
 
     marketList.appendChild(listingCard);
   });
@@ -309,8 +341,257 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target === sellModal) {
       sellModal.style.display = "none";
     }
+    if (event.target === document.getElementById("cart-modal")) {
+      document.getElementById("cart-modal").style.display = "none";
+    }
   });
 });
+
+// Cart functions
+function getCart() {
+  return JSON.parse(localStorage.getItem("spinrot_cart")) || [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem("spinrot_cart", JSON.stringify(cart));
+}
+
+function updateCartBadge() {
+  const cart = getCart();
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+  const cartBadge = document.getElementById("cart-badge");
+  if (cartBadge) {
+    cartBadge.textContent = totalItems;
+    cartBadge.style.display = totalItems > 0 ? "inline" : "none";
+  }
+}
+
+function addToCart(item, rarity, price) {
+  const cart = getCart();
+  const existingItem = cart.find(
+    (cartItem) => cartItem.item === item && cartItem.rarity === rarity
+  );
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ item, rarity, price, quantity: 1 });
+  }
+
+  saveCart(cart);
+  updateCartBadge();
+  showNotification(`Adicionou "${item}" (${rarity}) ao carrinho!`, "success");
+}
+
+function updateCartQuantity(item, rarity, newQuantity) {
+  const cart = getCart();
+  const cartItem = cart.find(
+    (cartItem) => cartItem.item === item && cartItem.rarity === rarity
+  );
+
+  if (cartItem) {
+    if (newQuantity <= 0) {
+      removeFromCart(item, rarity);
+    } else {
+      cartItem.quantity = newQuantity;
+      saveCart(cart);
+      showCartModal();
+      updateCartBadge();
+    }
+  }
+}
+
+function removeFromCart(item, rarity) {
+  const cart = getCart();
+  const updatedCart = cart.filter(
+    (cartItem) => !(cartItem.item === item && cartItem.rarity === rarity)
+  );
+  saveCart(updatedCart);
+  updateCartBadge();
+  showCartModal();
+}
+
+function getCartTotal() {
+  const cart = getCart();
+  return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+}
+
+function clearCart() {
+  localStorage.removeItem("spinrot_cart");
+  updateCartBadge();
+}
+
+// Show cart modal
+function showCartModal() {
+  const modal = document.getElementById("cart-modal");
+  const cartItems = document.getElementById("cart-items");
+  const emptyCart = document.getElementById("empty-cart");
+  const cartTotal = document.getElementById("cart-total");
+  const cart = getCart();
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = "";
+    emptyCart.style.display = "block";
+    cartTotal.textContent = "0";
+  } else {
+    emptyCart.style.display = "none";
+    cartItems.innerHTML = cart
+      .map(
+        (item, index) => `
+          <div class="cart-item">
+            <img src="../img/${itemImages[item.item]}" alt="${item.item}" />
+            <div class="item-info">
+              <h5>${item.item}</h5>
+              <p class="item-price">${item.price} moedas cada</p>
+            </div>
+            <div class="quantity-controls">
+              <button onclick="updateCartQuantity('${item.item}', '${
+          item.rarity
+        }', ${item.quantity - 1})">-</button>
+              <span class="quantity">${item.quantity}</span>
+              <button onclick="updateCartQuantity('${item.item}', '${
+          item.rarity
+        }', ${item.quantity + 1})">+</button>
+              <button class="remove-btn" onclick="removeFromCart('${
+                item.item
+              }', '${item.rarity}')">Remover</button>
+            </div>
+          </div>
+        `
+      )
+      .join("");
+    cartTotal.textContent = getCartTotal();
+  }
+
+  modal.style.display = "block";
+
+  // Handle checkout
+  document.getElementById("checkout-btn").onclick = () => {
+    checkoutCart();
+  };
+
+  // Handle clear cart
+  document.getElementById("clear-cart-btn").onclick = () => {
+    clearCart();
+    modal.style.display = "none";
+    showNotification("Carrinho limpo!", "success");
+  };
+}
+
+// Checkout cart
+function checkoutCart() {
+  const cart = getCart();
+  const total = getCartTotal();
+  const balance = parseInt(localStorage.getItem("spinrot_balance")) || 0;
+
+  if (balance < total) {
+    showNotification("Saldo insuficiente para finalizar a compra!", "error");
+    return;
+  }
+
+  // Deduct balance
+  spendCoins(total);
+
+  // Add items to inventory
+  cart.forEach((item) => {
+    for (let i = 0; i < item.quantity; i++) {
+      addToInventory(item.item, item.rarity);
+    }
+  });
+
+  // Clear cart
+  clearCart();
+
+  // Close modal
+  document.getElementById("cart-modal").style.display = "none";
+
+  showNotification(`Compra finalizada! Gastaste ${total} moedas.`, "success");
+}
+
+// Show favorites function
+function showFavorites() {
+  const marketList = document.getElementById("market-list");
+  const emptyMarket = document.getElementById("empty-market");
+
+  if (!marketList) return;
+
+  // Clear existing content
+  marketList.innerHTML = "";
+
+  // Filter listings to show only favorites
+  const favoriteListings = marketListings.filter((listing) =>
+    isFavorite(listing.item.item, listing.item.rarity)
+  );
+
+  if (favoriteListings.length === 0) {
+    emptyMarket.style.display = "block";
+    emptyMarket.innerHTML = "<p>Não tens itens favoritos no mercado.</p>";
+    return;
+  }
+
+  emptyMarket.style.display = "none";
+
+  favoriteListings.forEach((listing, index) => {
+    const listingCard = document.createElement("div");
+    listingCard.className = "market-item-card";
+
+    const imageSrc = itemImages[listing.item.item]
+      ? `../img/${itemImages[listing.item.item]}`
+      : `https://via.placeholder.com/100x100?text=${encodeURIComponent(
+          listing.item.item
+        )}`;
+    const isFav = isFavorite(listing.item.item, listing.item.rarity);
+    listingCard.innerHTML = `
+      <img src="${imageSrc}" alt="${listing.item.item}" />
+      <div class="item-info">
+        <h5>${listing.item.item}</h5>
+        <p class="rarity-label ${listing.item.rarity}">${
+      listing.item.rarity.charAt(0).toUpperCase() + listing.item.rarity.slice(1)
+    }</p>
+        <p class="item-price"><i class="ri-coin-fill"></i> ${
+          listing.price
+        } Moedas</p>
+      </div>
+      <div class="item-actions">
+        <button class="btn btn-outline-danger like-btn ${
+          isFav ? "liked" : ""
+        }" data-item="${listing.item.item}" data-rarity="${
+      listing.item.rarity
+    }">
+          <i class="ri-heart-${isFav ? "fill" : "line"}"></i>
+        </button>
+        <button class="btn btn-success buy-btn" data-index="${index}">Adicionar ao Carrinho</button>
+      </div>
+    `;
+
+    // Add click event to like button
+    const likeBtn = listingCard.querySelector(".like-btn");
+    likeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const item = e.target.closest(".like-btn").getAttribute("data-item");
+      const rarity = e.target.closest(".like-btn").getAttribute("data-rarity");
+      if (isFavorite(item, rarity)) {
+        removeFromFavorites(item, rarity);
+        e.target.closest(".like-btn").classList.remove("liked");
+        e.target.querySelector("i").className = "ri-heart-line";
+      } else {
+        addToFavorites(item, rarity);
+        e.target.closest(".like-btn").classList.add("liked");
+        e.target.querySelector("i").className = "ri-heart-fill";
+      }
+      // Refresh the favorites view
+      showFavorites();
+    });
+
+    // Add click event to buy button
+    const buyBtn = listingCard.querySelector(".buy-btn");
+    buyBtn.addEventListener("click", () =>
+      addToCart(listing.item.item, listing.item.rarity, listing.price)
+    );
+
+    marketList.appendChild(listingCard);
+  });
+}
 
 // Notification function
 function showNotification(message, type = "success") {

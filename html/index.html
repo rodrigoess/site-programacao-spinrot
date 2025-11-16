@@ -138,12 +138,17 @@
                   </div>
                 </div>
               </div>
-              <a href="#" class="btn btn-secondary me-1"
+              <a
+                href="inventory.html?favorites=true"
+                class="btn btn-secondary me-1"
                 ><i class="ri-heart-fill"></i
               ></a>
-              <a href="#" class="btn btn-secondary"
+              <a href="#" class="btn btn-secondary cart-btn"
                 ><i class="ri-shopping-cart-2-fill"></i
-              ></a>
+                ><span id="cart-badge" class="cart-badge" style="display: none"
+                  >0</span
+                ></a
+              >
             </div>
           </div>
         </div>
@@ -157,11 +162,7 @@
     </div>
     <div class="promo-container">
       <div class="promo-card featured">
-        <img
-          src="../img/Ballerina Cappuccina.jfif"
-          alt="Roletas"
-          class="promo-img"
-        />
+        <i class="ri-vip-diamond-fill promo-icon"></i>
         <h3>Roletas</h3>
         <p>Gira a roda e ganha rots raros e épicos!</p>
         <button
@@ -172,11 +173,7 @@
         </button>
       </div>
       <div class="promo-card">
-        <img
-          src="../img/Blueberrinni Octopussini.jfif"
-          alt="Caixas"
-          class="promo-img"
-        />
+        <i class="ri-box-1-fill promo-icon"></i>
         <h3>Caixas</h3>
         <p>Abre caixas e descobre itens lendários!</p>
         <button class="promo-btn" onclick="window.location.href='boxes.html'">
@@ -184,11 +181,7 @@
         </button>
       </div>
       <div class="promo-card">
-        <img
-          src="../img/Apollino Cappuccino.jpg"
-          alt="Grátis"
-          class="promo-img"
-        />
+        <i class="ri-gift-2-fill promo-icon"></i>
         <h3>Grátis</h3>
         <p>Joga gratuitamente e ganha sem gastar nada!</p>
         <button class="promo-btn" onclick="window.location.href='gratis.html'">
@@ -196,7 +189,7 @@
         </button>
       </div>
       <div class="promo-card">
-        <img src="../img/Bobrito Bandito.jfif" alt="Trocas" class="promo-img" />
+        <i class="ri-arrow-left-right-line promo-icon"></i>
         <h3>Trocas</h3>
         <p>Troca os teus rots com outros jogadores!</p>
         <button class="promo-btn" onclick="window.location.href='trades.html'">
@@ -204,11 +197,7 @@
         </button>
       </div>
       <div class="promo-card">
-        <img
-          src="../img/Bombardiro Crocodilo.jpg"
-          alt="Mercado"
-          class="promo-img"
-        />
+        <i class="ri-store-fill promo-icon"></i>
         <h3>Mercado</h3>
         <p>Compra e vende rots no mercado!</p>
         <button class="promo-btn" onclick="window.location.href='market.html'">
@@ -216,11 +205,7 @@
         </button>
       </div>
       <div class="promo-card">
-        <img
-          src="../img/Bombombini Gusini.jfif"
-          alt="Inventário"
-          class="promo-img"
-        />
+        <i class="ri-home-smile-fill promo-icon"></i>
         <h3>Inventário</h3>
         <p>Vê os teus rots recolhidos</p>
         <button
@@ -272,4 +257,5 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../js/script.js"></script>
+  <script src="../js/google-auth.js"></script>
 </html>
