@@ -638,3 +638,155 @@ body.light-mode .timer {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  color: var(--text-color);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: var(--text-color);
+}
+
+.close {
+  color: var(--text-muted);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--text-color);
+}
+
+/* Cart modal styles */
+.cart-items {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cart-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.cart-item .item-info {
+  flex: 1;
+}
+
+.cart-item .item-info h5 {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.cart-item .item-price {
+  font-size: 0.8rem;
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.cart-item .quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cart-item .quantity-controls button {
+  width: 25px;
+  height: 25px;
+  border: none;
+  background: var(--border-color);
+  color: var(--text-color);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.cart-item .quantity-controls button:hover {
+  background: #555;
+}
+
+.cart-item .quantity {
+  font-size: 0.9rem;
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+.cart-item .remove-btn {
+  background: #dc3545 !important;
+  color: white !important;
+  padding: 0.25rem 0.5rem;
+  width: auto;
+  height: auto;
+}
+
+.cart-item .remove-btn:hover {
+  background: #c82333 !important;
+}
+
+.cart-total {
+  text-align: right;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.cart-total h4 {
+  margin: 0;
+  color: #ffd700;
+}
+
+/* Cart badge styles */
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bg-color);
+}
+
+.cart-btn {
+  position: relative;
+}

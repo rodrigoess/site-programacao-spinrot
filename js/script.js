@@ -22,8 +22,72 @@ let favorites = JSON.parse(localStorage.getItem("spinrot_favorites")) || [];
 // Gestão de carrinho de compras
 let cart = JSON.parse(localStorage.getItem("spinrot_cart")) || [];
 
+// Update cart badge
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem("spinrot_cart")) || [];
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+  const cartBadge = document.getElementById("cart-badge");
+  if (cartBadge) {
+    cartBadge.textContent = totalItems;
+    cartBadge.style.display = totalItems > 0 ? "inline-flex" : "none";
+  }
+}
+
+// Show cart modal
+function showCartModal() {
+  const modal = document.getElementById("cart-modal");
+  const cartItems = document.getElementById("cart-items");
+  const emptyCart = document.getElementById("empty-cart");
+  const cartTotal = document.getElementById("cart-total");
+  const checkoutBtn = document.getElementById("checkout-btn");
+  const cart = JSON.parse(localStorage.getItem("spinrot_cart")) || [];
+
+  if (!modal) {
+    alert("Modal do carrinho não encontrado. Esta funcionalidade só está disponível na página do mercado.");
+    return;
+  }
+
+  if (cart.length === 0) {
+    if (cartItems) cartItems.innerHTML = "";
+    if (emptyCart) emptyCart.style.display = "block";
+    if (cartTotal) cartTotal.textContent = "0";
+    if (checkoutBtn) checkoutBtn.style.display = "none";
+  } else {
+    if (emptyCart) emptyCart.style.display = "none";
+    if (checkoutBtn) checkoutBtn.style.display = "block";
+    if (cartItems) {
+      cartItems.innerHTML = cart
+        .map(
+          (item) => `
+          <div class="cart-item">
+            <img src="../img/${itemImages[item.item] || 'logo.png'}" alt="${item.item}" />
+            <div class="item-info">
+              <h5>${item.item}</h5>
+              <p class="item-price">${item.price} moedas cada</p>
+            </div>
+            <div class="quantity-controls">
+              <button onclick="updateCartQuantity('${item.item}', '${item.rarity}', ${item.quantity - 1})">-</button>
+              <span class="quantity">${item.quantity}</span>
+              <button onclick="updateCartQuantity('${item.item}', '${item.rarity}', ${item.quantity + 1})">+</button>
+              <button class="remove-btn" onclick="removeFromCart('${item.item}', '${item.rarity}')">Remover</button>
+            </div>
+          </div>
+        `
+        )
+        .join("");
+    }
+    if (cartTotal) {
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      cartTotal.textContent = total;
+    }
+  }
+
+  modal.style.display = "block";
+}
+
 // Adicionar item ao carrinho
 function addToCart(item, rarity, price) {
+  cart = JSON.parse(localStorage.getItem("spinrot_cart")) || [];
   const existingItem = cart.find(
     (cartItem) => cartItem.item === item && cartItem.rarity === rarity
   );
@@ -33,28 +97,39 @@ function addToCart(item, rarity, price) {
     cart.push({ item, rarity, price, quantity: 1 });
   }
   saveCart();
-  alert(`Adicionou ${item} (${rarity}) ao carrinho!`);
+  updateCartBadge();
+  if (typeof showNotification === 'function') {
+    showNotification(`Adicionou ${item} (${rarity}) ao carrinho!`, "success");
+  } else {
+    alert(`Adicionou ${item} (${rarity}) ao carrinho!`);
+  }
 }
 
 // Remover item do carrinho
 function removeFromCart(item, rarity) {
+  cart = JSON.parse(localStorage.getItem("spinrot_cart")) || [];
   cart = cart.filter(
     (cartItem) => !(cartItem.item === item && cartItem.rarity === rarity)
   );
   saveCart();
+  updateCartBadge();
+  showCartModal();
 }
 
 // Atualizar quantidade de item no carrinho
 function updateCartQuantity(item, rarity, quantity) {
+  cart = JSON.parse(localStorage.getItem("spinrot_cart")) || [];
   const cartItem = cart.find(
     (cartItem) => cartItem.item === item && cartItem.rarity === rarity
   );
   if (cartItem) {
-    cartItem.quantity = quantity;
-    if (cartItem.quantity <= 0) {
+    if (quantity <= 0) {
       removeFromCart(item, rarity);
     } else {
+      cartItem.quantity = quantity;
       saveCart();
+      updateCartBadge();
+      showCartModal();
     }
   }
 }
@@ -73,11 +148,13 @@ function getCart() {
 function clearCart() {
   cart = [];
   saveCart();
+  updateCartBadge();
 }
 
 // Salvar carrinho no localStorage
 function saveCart() {
   localStorage.setItem("spinrot_cart", JSON.stringify(cart));
+  updateCartBadge();
 }
 
 // Atualizar exibição de saldo (funciona em qualquer página com elemento balance-display)
@@ -638,6 +715,83 @@ document.addEventListener("DOMContentLoaded", () => {
   updateBalanceDisplay();
   updateLanguageDisplay();
   updateModeDisplay();
+  updateCartBadge();
+
+  // Setup cart modal close button
+  const cartModal = document.getElementById("cart-modal");
+  if (cartModal) {
+    const cartCloseBtn = cartModal.querySelector(".close");
+    if (cartCloseBtn) {
+      cartCloseBtn.addEventListener("click", () => {
+        cartModal.style.display = "none";
+      });
+    }
+
+    // Setup checkout button
+    const checkoutBtn = document.getElementById("checkout-btn");
+    if (checkoutBtn && !checkoutBtn.hasAttribute('onclick')) {
+      checkoutBtn.addEventListener("click", () => {
+        checkoutCart();
+      });
+    }
+
+    // Setup clear cart button
+    const clearCartBtn = document.getElementById("clear-cart-btn");
+    if (clearCartBtn) {
+      clearCartBtn.addEventListener("click", () => {
+        clearCart();
+        cartModal.style.display = "none";
+        if (typeof showNotification === 'function') {
+          showNotification("Carrinho limpo!", "success");
+        } else {
+          alert("Carrinho limpo!");
+        }
+      });
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener("click", (event) => {
+      if (event.target === cartModal) {
+        cartModal.style.display = "none";
+      }
+    });
+  }
+
+  // Checkout cart function
+  window.checkoutCart = function() {
+    const cart = JSON.parse(localStorage.getItem("spinrot_cart")) || [];
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const balance = parseInt(localStorage.getItem("spinrot_balance")) || 0;
+
+    if (cart.length === 0) {
+      alert("O carrinho está vazio!");
+      return;
+    }
+
+    if (balance < total) {
+      alert("Saldo insuficiente para finalizar a compra!");
+      return;
+    }
+
+    // Deduct balance
+    spendCoins(total);
+
+    // Add items to inventory
+    cart.forEach((item) => {
+      for (let i = 0; i < item.quantity; i++) {
+        addToInventory(item.item, item.rarity);
+      }
+    });
+
+    // Clear cart
+    clearCart();
+
+    // Close modal
+    const modal = document.getElementById("cart-modal");
+    if (modal) modal.style.display = "none";
+
+    alert(`Compra finalizada! Gastaste ${total} moedas.`);
+  };
 
   // Event listeners para dropdowns
   const currentLang = document.getElementById("current-lang");

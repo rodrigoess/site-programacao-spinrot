@@ -161,7 +161,7 @@
                 class="btn btn-secondary me-1"
                 ><i class="ri-heart-fill"></i
               ></a>
-              <a href="#" class="btn btn-secondary cart-btn"
+              <a href="#" class="btn btn-secondary cart-btn" onclick="showCartModal()"
                 ><i class="ri-shopping-cart-2-fill"></i
                 ><span id="cart-badge" class="cart-badge" style="display: none"
                   >0</span
@@ -225,6 +225,21 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div id="cart-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>O Teu Carrinho de Compras</h2>
+        <div id="cart-items" class="cart-items"></div>
+        <div id="empty-cart" class="text-center mt-4" style="display: none">
+          <p>O carrinho está vazio.</p>
+        </div>
+        <div class="cart-total mt-3">
+          <h4>Total: <span id="cart-total">0</span> Moedas</h4>
+        </div>
+        <button id="checkout-btn" class="btn btn-success mt-3">Finalizar Compra</button>
+        <button id="clear-cart-btn" class="btn btn-danger mt-2">Limpar Carrinho</button>
       </div>
     </div>
     <!-- Bootstrap JS -->

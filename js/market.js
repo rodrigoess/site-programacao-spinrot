@@ -43,6 +43,26 @@ document.addEventListener("DOMContentLoaded", () => {
   displaySellInventory();
   updateBalanceDisplay();
   updateCartBadge();
+
+  // Setup checkout button (only on market page)
+  const checkoutBtn = document.getElementById("checkout-btn");
+  if (checkoutBtn && checkoutBtn.getAttribute('onclick') === null) {
+    checkoutBtn.addEventListener("click", () => {
+      checkoutCart();
+    });
+  }
+
+  // Setup clear cart button
+  const clearCartBtn = document.getElementById("clear-cart-btn");
+  if (clearCartBtn && !clearCartBtn.hasAttribute('data-listener')) {
+    clearCartBtn.setAttribute('data-listener', 'true');
+    clearCartBtn.addEventListener("click", () => {
+      clearCart();
+      const modal = document.getElementById("cart-modal");
+      if (modal) modal.style.display = "none";
+      showNotification("Carrinho limpo!", "success");
+    });
+  }
 });
 
 // Initialize market with all brainrots for sale
@@ -341,74 +361,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target === sellModal) {
       sellModal.style.display = "none";
     }
-    if (event.target === document.getElementById("cart-modal")) {
-      document.getElementById("cart-modal").style.display = "none";
-    }
   });
 });
 
-// Cart functions
+// Cart functions (using global functions from script.js)
 function getCart() {
   return JSON.parse(localStorage.getItem("spinrot_cart")) || [];
-}
-
-function saveCart(cart) {
-  localStorage.setItem("spinrot_cart", JSON.stringify(cart));
-}
-
-function updateCartBadge() {
-  const cart = getCart();
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-  const cartBadge = document.getElementById("cart-badge");
-  if (cartBadge) {
-    cartBadge.textContent = totalItems;
-    cartBadge.style.display = totalItems > 0 ? "inline" : "none";
-  }
-}
-
-function addToCart(item, rarity, price) {
-  const cart = getCart();
-  const existingItem = cart.find(
-    (cartItem) => cartItem.item === item && cartItem.rarity === rarity
-  );
-
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({ item, rarity, price, quantity: 1 });
-  }
-
-  saveCart(cart);
-  updateCartBadge();
-  showNotification(`Adicionou "${item}" (${rarity}) ao carrinho!`, "success");
-}
-
-function updateCartQuantity(item, rarity, newQuantity) {
-  const cart = getCart();
-  const cartItem = cart.find(
-    (cartItem) => cartItem.item === item && cartItem.rarity === rarity
-  );
-
-  if (cartItem) {
-    if (newQuantity <= 0) {
-      removeFromCart(item, rarity);
-    } else {
-      cartItem.quantity = newQuantity;
-      saveCart(cart);
-      showCartModal();
-      updateCartBadge();
-    }
-  }
-}
-
-function removeFromCart(item, rarity) {
-  const cart = getCart();
-  const updatedCart = cart.filter(
-    (cartItem) => !(cartItem.item === item && cartItem.rarity === rarity)
-  );
-  saveCart(updatedCart);
-  updateCartBadge();
-  showCartModal();
 }
 
 function getCartTotal() {
@@ -416,73 +374,18 @@ function getCartTotal() {
   return cart.reduce((total, item) => total + item.price * item.quantity, 0);
 }
 
-function clearCart() {
-  localStorage.removeItem("spinrot_cart");
-  updateCartBadge();
-}
 
-// Show cart modal
-function showCartModal() {
-  const modal = document.getElementById("cart-modal");
-  const cartItems = document.getElementById("cart-items");
-  const emptyCart = document.getElementById("empty-cart");
-  const cartTotal = document.getElementById("cart-total");
-  const cart = getCart();
-
-  if (cart.length === 0) {
-    cartItems.innerHTML = "";
-    emptyCart.style.display = "block";
-    cartTotal.textContent = "0";
-  } else {
-    emptyCart.style.display = "none";
-    cartItems.innerHTML = cart
-      .map(
-        (item, index) => `
-          <div class="cart-item">
-            <img src="../img/${itemImages[item.item]}" alt="${item.item}" />
-            <div class="item-info">
-              <h5>${item.item}</h5>
-              <p class="item-price">${item.price} moedas cada</p>
-            </div>
-            <div class="quantity-controls">
-              <button onclick="updateCartQuantity('${item.item}', '${
-          item.rarity
-        }', ${item.quantity - 1})">-</button>
-              <span class="quantity">${item.quantity}</span>
-              <button onclick="updateCartQuantity('${item.item}', '${
-          item.rarity
-        }', ${item.quantity + 1})">+</button>
-              <button class="remove-btn" onclick="removeFromCart('${
-                item.item
-              }', '${item.rarity}')">Remover</button>
-            </div>
-          </div>
-        `
-      )
-      .join("");
-    cartTotal.textContent = getCartTotal();
-  }
-
-  modal.style.display = "block";
-
-  // Handle checkout
-  document.getElementById("checkout-btn").onclick = () => {
-    checkoutCart();
-  };
-
-  // Handle clear cart
-  document.getElementById("clear-cart-btn").onclick = () => {
-    clearCart();
-    modal.style.display = "none";
-    showNotification("Carrinho limpo!", "success");
-  };
-}
 
 // Checkout cart
 function checkoutCart() {
   const cart = getCart();
   const total = getCartTotal();
   const balance = parseInt(localStorage.getItem("spinrot_balance")) || 0;
+
+  if (cart.length === 0) {
+    showNotification("O carrinho está vazio!", "error");
+    return;
+  }
 
   if (balance < total) {
     showNotification("Saldo insuficiente para finalizar a compra!", "error");
@@ -503,7 +406,8 @@ function checkoutCart() {
   clearCart();
 
   // Close modal
-  document.getElementById("cart-modal").style.display = "none";
+  const modal = document.getElementById("cart-modal");
+  if (modal) modal.style.display = "none";
 
   showNotification(`Compra finalizada! Gastaste ${total} moedas.`, "success");
 }
