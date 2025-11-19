@@ -1,4 +1,0 @@
-- [x] Update html/boxes.html with new HTML code, fixing nav links to correct file names
-- [x] Update css/boxes.css with new styles including animations and responsiveness
-- [x] Update js/boxes.js with brainrot items and functionality
-- [x] Test the boxes page by opening it in a browser to ensure redirects work
